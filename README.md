@@ -34,7 +34,7 @@ This repository is a collection of LeetCode problems I’ve solved during my pra
 
 ## 📞 Support:
 
-- If you find a solution or explanation unclear, feel free to [open an issue](https://github.com/bagusvalentinoo/express-restful-api-search-filter-pagination/issues) or contact the maintainers.
+- If you find a solution or explanation unclear, feel free to [open an issue](https://github.com/bagusvalentinoo/leetcode-journey/issues) or contact the maintainers.
 - Fork the repository and submit pull requests with optimized solutions or additional insights.
 - Share feedback or ideas to help me grow and improve this repository.
 
