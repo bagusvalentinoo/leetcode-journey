@@ -1,4 +1,4 @@
-# LeetCode Journey - A disciplined and consistent documentation of my problem-solving practice, featuring clear explanations, clean code, and a focus on continuous growth.
+# LeetCode Journey - A disciplined and consistent documentation of my problem-solving practice
 
 ## 🌟 Welcome to my LeetCode Journey!
 
