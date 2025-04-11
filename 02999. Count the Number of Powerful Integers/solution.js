@@ -1,9 +1,11 @@
 /**
  * Problem: 2999. Count the Number of Powerful Integers
  *
+ * Difficulty: Hard
+ *
  * Language: JavaScript
  *
- * Performance: Runtime - 1 ms (Beats 100%), Memory - 56.25 MB (66.67%)
+ * Performance: Runtime - 1 ms (Beats 100%)
  */
 
 /**

@@ -1,9 +1,11 @@
 /**
  * Problem: 872. Leaf-Similar Trees
  *
+ * Difficulty: Easy
+ *
  * Language: JavaScript
  *
- * Performance: Runtime - 0 ms (Beats 100%), Memory - 56.14 MB (70.88%)
+ * Performance: Runtime - 0 ms (Beats 100%)
  */
 
 /**

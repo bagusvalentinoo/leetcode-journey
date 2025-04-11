@@ -1,9 +1,11 @@
 /**
  * Problem: 2843. Count Symmetric Integers
  *
+ * Difficulty: Easy
+ *
  * Language: JavaScript
  *
- * Performance: Runtime - 6 ms (Beats 100%), Memory - 56.67 MB (87.10%)
+ * Performance: Runtime - 6 ms (Beats 100%)
  */
 
 /*

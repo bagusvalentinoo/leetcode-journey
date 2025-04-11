@@ -1,9 +1,11 @@
 /**
  * Problem: 871. Minimum Number of Refueling Stops
  *
+ * Difficulty: Hard
+ *
  * Language: JavaScript
  *
- * Performance: Runtime - 1 ms (Beats 100%), Memory - 57.66 MB (50.00%)
+ * Performance: Runtime - 1 ms (Beats 100%)
  */
 
 /**

@@ -1,9 +1,11 @@
 /**
  * Problem: 873. Length of Longest Fibonacci Subsequence
  *
+ * Difficulty: Medium
+ *
  * Language: JavaScript
  *
- * Performance: Runtime - 36 ms (Beats 100%), Memory - 57.28 MB (86.91%)
+ * Performance: Runtime - 36 ms (Beats 100%)
  */
 
 /**
