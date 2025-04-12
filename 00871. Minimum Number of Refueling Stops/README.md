@@ -4,7 +4,7 @@
   </a>
 </h1>
 <img src='https://img.shields.io/badge/Difficulty-Hard-red' alt='Difficulty: Hard' />
-<img src='https://img.shields.io/badge/Topics-Array%2C%20Dynamic%20Programming%2C%20Greedy%2C%20Heap%20(Priority%20Queue)-blue' alt='Topic: Array, Dynamic Programming, Greedy, Heap (Priority Queue)' />
+<img src='https://img.shields.io/badge/Topics-Array%2C%20Dynamic%20Programming%2C%20Greedy%2C%20Heap%20(Priority%20Queue)-blue' alt='Topics: Array, Dynamic Programming, Greedy, Heap (Priority Queue)' />
 
 <hr />
 

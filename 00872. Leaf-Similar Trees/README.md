@@ -4,7 +4,7 @@
   </a>
 </h1>
 <img src='https://img.shields.io/badge/Difficulty-Easy-greenlight' alt='Difficulty: Easy' />
-<img src='https://img.shields.io/badge/Topics-Tree%2C%20Depth--First%20Search%2C%20Binary%20Tree-blue' alt='Topic: Tree, Depth-First Search, Binary Tree' />
+<img src='https://img.shields.io/badge/Topics-Tree%2C%20Depth--First%20Search%2C%20Binary%20Tree-blue' alt='Topics: Tree, Depth-First Search, Binary Tree' />
 
 <hr />
 

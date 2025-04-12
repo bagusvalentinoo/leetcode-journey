@@ -4,7 +4,7 @@
   </a>
 </h1>
 <img src='https://img.shields.io/badge/Difficulty-Hard-red' alt='Difficulty: Hard' />
-<img src='https://img.shields.io/badge/Topics-Graph%2C%20Heap%20(Priority%20Queue)%2C%20Shortest%20Path-blue' alt='Topic: Graph, Heap (Priority Queue), Shortest Path' />
+<img src='https://img.shields.io/badge/Topics-Graph%2C%20Heap%20(Priority%20Queue)%2C%20Shortest%20Path-blue' alt='Topics: Graph, Heap (Priority Queue), Shortest Path' />
 
 <hr />
 
