@@ -6,6 +6,12 @@ This repository is a collection of LeetCode problems I’ve solved during my pra
 
 ---
 
+## 🌐 My LeetCode Profile
+
+You can visit [my LeetCode profile](https://leetcode.com/bagusvalentinoo) to see my progress and solutions.
+
+---
+
 ## 🎯 Why This Repository?
 
 - **Discipline & Consistency:** I approach every problem with a structured mindset, ensuring that I solve problems daily and track my progress over time.
