@@ -35,7 +35,7 @@ const sumSubarrayMins = (arr) => {
       ans = (ans + arr[curr] * numSubArrs) % (10 ** 9 + 7)
     }
 
-    // Push current index to stack
+    // Push current index to stack/
     stack.push(i)
   }
 
