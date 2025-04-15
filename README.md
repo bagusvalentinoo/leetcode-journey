@@ -8,7 +8,7 @@ This repository is a collection of LeetCode problems I’ve solved during my pra
 
 ## 🌐 My LeetCode Profile
 
-You can visit [my LeetCode profile](https://leetcode.com/bagusvalentinoo) to see my progress and solutions.
+You can visit [my LeetCode profile](https://leetcode.com/u/bagusvalentino) to see my progress and solutions.
 
 ---
 
