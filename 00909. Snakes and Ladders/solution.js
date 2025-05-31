@@ -5,80 +5,69 @@
  *
  * Language: JavaScript
  *
- * Performance: Runtime - 2 ms (Beats 99.72%)
+ * Performance: Runtime - 1 ms (Beats 100%)
  */
 
 /**
- * Finds the minimum number of dice rolls required to reach the final square
+ * Finds minimum dice rolls to reach the final square in Snakes and Ladders
  *
- * @param {number[][]} board - n x n board with snakes and ladders
+ * @param {number[][]} board - n x n board representation
  *
- * @returns {number} - Minimum number of dice rolls required, or -1 if not possible
+ * @returns {number} - Minimum rolls required or -1 if impossible
  */
 const snakesAndLadders = (board) => {
-  const m = board.length // Number of rows
-  const n = board[0].length // Number of columns
-  const boardLength = m * n // Total number of squares
-  const flattened = new Array(boardLength + 1).fill(0) // Flattened board
+  // Initialize queue with starting position
+  const queue = [1]
+  // Get board size
+  const boardSize = board[0].length
+  // Calculate final destination square
+  const finalSquare = boardSize * boardSize
 
-  let flattenedIdx = 1
-  board.reverse() // Reverse the board
-
-  // Flatten the board
-  for (let i = 0; i < m; i++) {
-    // Iterate through rows
-    for (let j = 0; j < n; j++) {
-      // Iterate through columns
-      if (i % 2 === 0) flattened[flattenedIdx] = board[i][j]
-      // For odd rows, fill from right to left
-      else flattened[flattenedIdx] = board[i][n - 1 - j]
-
-      // Move to the next flattened index
-      flattenedIdx++
-    }
-  }
-
-  // Initialize BFS
-  let queue = [1]
+  // Track number of dice rolls
   let rolls = 0
-  const seen = new Array(boardLength + 1).fill(false)
-  seen[1] = true
 
-  // Perform BFS
   while (queue.length) {
-    const nextQueue = []
-
-    // Iterate through the current queue
-    for (const position of queue) {
-      // Iterate through possible dice rolls
-      for (let roll = 1; roll < 7; roll++) {
-        const nextPosition = position + roll
-
-        // Check if the next position has been seen
-        if (!seen[nextPosition]) {
-          seen[nextPosition] = true
-
-          // Check if the next position is the final square
-          if (
-            nextPosition === boardLength ||
-            flattened[nextPosition] === boardLength
-          )
-            return rolls + 1
-
-          // Check if the next position is a snake or ladder
-          if (flattened[nextPosition] !== -1)
-            nextQueue.push(flattened[nextPosition])
-          // If not, add the next position to the queue
-          else nextQueue.push(nextPosition)
-        }
-      }
-    }
-
-    // Move to the next queue
-    queue = nextQueue
+    // Get current level size
+    let levelSize = queue.length
     rolls++
+
+    while (levelSize > 0) {
+      // Get current position
+      const currentPos = queue.shift()
+
+      for (let step = 1; step <= 6; step++) {
+        // Calculate next position after dice roll
+        let nextPos = currentPos + step
+
+        // Skip if next position is beyond the board
+        if (nextPos > finalSquare) continue
+
+        // Convert 1D position to 2D board coordinates
+        const row = Math.floor((nextPos - 1) / boardSize)
+        const col = (nextPos - 1) % boardSize
+        // Account for zigzag board pattern
+        const physicalRow = boardSize - 1 - row
+        const physicalCol = row % 2 === 0 ? col : boardSize - 1 - col
+        // Get value at the destination square
+        const squareValue = board[physicalRow][physicalCol]
+
+        // Skip if square is already visited
+        if (squareValue === 0) continue
+        // If there's a snake or ladder, update position
+        if (squareValue > 0) nextPos = squareValue
+        // Return rolls if reached final square
+        if (nextPos === finalSquare) return rolls
+
+        // Add next position to queue
+        queue.push(nextPos)
+        // Mark square as visited
+        board[physicalRow][physicalCol] = 0
+      }
+
+      levelSize--
+    }
   }
 
-  // Return -1 if not possible
+  // Return -1 if impossible to reach the final square
   return -1
 }
