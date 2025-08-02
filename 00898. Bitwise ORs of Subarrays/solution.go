@@ -5,42 +5,41 @@
  *
  * Language: Golang
  *
- * Performance: Runtime - 355 ms (Beats 100%)
+ * Performance: Runtime - 75 ms (Beats 100%)
  */
 
-// IntSet is a set data structure for integers using a map with empty struct values.
-type IntSet map[int]struct{}
-
-// Add inserts an integer value into the IntSet.
-func (set IntSet) Add(value int) {
-	set[value] = struct{}{}
-}
+// m is a map to store unique bitwise OR results of subarrays.
+// The key is the OR result, and the value is a boolean (used only for existence check).
+var m = make(map[int32]bool, 1e5)
 
 func subarrayBitwiseORs(arr []int) int {
-	// allResults stores all unique bitwise OR results from subarrays.
-	allResults := IntSet{}
-	// previousResults stores the OR results from the previous iteration (previous subarray ends).
-	previousResults := IntSet{}
+	// cur holds the OR results of subarrays ending at the previous element.
+	// next will hold the OR results for subarrays ending at the current element.
+	cur, next := make([]int32, 0, 32), make([]int32, 0, 32)
 
 	// Iterate through each element in arr.
-	for _, num := range arr {
-		// currentResults stores OR results for subarrays ending at the current element.
-		currentResults := IntSet{}
-		// Add the current number itself as a subarray of length 1.
-		currentResults.Add(num)
-		allResults.Add(num)
+	for _, a := range arr {
+		a := int32(a) // Convert to int32 for consistency with map key type.
+		next = append(next, a) // Start new subarray with current element.
 
-		// For each result in previousResults, OR it with the current number and add to sets.
-		for prev := range previousResults {
-			orResult := prev | num
-			currentResults.Add(orResult)
-			allResults.Add(orResult)
+		// For each OR result in cur, compute OR with current element.
+		for _, c := range cur {
+			// Only add if the result is different from the last added value to avoid duplicates.
+			if next[len(next)-1] != c|a { next = append(next, c|a) }
 		}
 
-		// Update previousResults for the next iteration.
-		previousResults = currentResults
-	}
+		// Add all OR results in next to the map to ensure uniqueness.
+		for _, n := range next { m[n] = true }
 
-	// Return the count of unique OR results.
-	return len(allResults)
+		// Prepare cur and next for the next iteration.
+		cur, next = next, cur[:0]
+	}
+	
+	// The answer is the number of unique OR results stored in the map.
+	ans := len(m)
+
+	// Clear the map for potential reuse.
+	for k := range m { delete(m, k) }
+
+	return ans
 }
