@@ -9,31 +9,41 @@
  */
 
 /**
- * Given a list of dominoes, return the number of equivalent domino pairs
+ * Counts equivalent domino pairs
  *
- * @param {number[][]} dominoes - The list of dominoes
+ * @param {number[][]} dominoes - Array of domino pairs
  *
- * @returns {number} - The number of equivalent domino pairs
+ * @returns {number} - Number of equivalent pairs
  */
 const numEquivDominoPairs = (dominoes) => {
-  // Count equivalent domino pairs by encoding each domino and using a frequency map
-  let c = 0
-  const map = {}
+  // Initialize an array to count occurrences of each domino configuration (since domino values are 1-9, 9*9=81 possible pairs)
+  const dominoCounts = new Array(81).fill(0),
+    equivalentPairs = new Array(81).fill(0)
 
+  // Iterate through each domino in the input array
   for (let i = 0; i < dominoes.length; i++) {
-    // Ensure the smaller number comes first to create a unique code for each domino
-    const low = Math.min(dominoes[i][0], dominoes[i][1])
-    const higt = Math.max(dominoes[i][0], dominoes[i][1])
+    // Destructure the domino into its two values
+    let [first, second] = dominoes[i]
 
-    const code = higt * 10 + low
-
-    // Increment the count of pairs if the code already exists in the map
-    if (map[code] === undefined) map[code] = 0
-    else {
-      map[code]++
-      c += map[code]
+    // Ensure the smaller value comes first for consistent representation
+    if (second > first) {
+      ;[first, second] = [second, first]
     }
+
+    // Calculate a unique index for the domino pair (values 1-9 mapped to 0-8)
+    const index = first - 1 + (second - 1) * 9
+
+    // Add the current count of this domino configuration to the equivalent pairs
+    equivalentPairs[index] += dominoCounts[index]
+    // Increment the count for this domino configuration
+    dominoCounts[index] += 1
   }
 
-  return c
+  // Sum all equivalent pairs to get the total number of equivalent domino pairs, defaulting to 0 if undefined
+  return (
+    equivalentPairs.reduce(
+      (accumulator, current) => accumulator + current,
+      0
+    ) ?? 0
+  )
 }
