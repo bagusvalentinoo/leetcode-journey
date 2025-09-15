@@ -9,70 +9,84 @@
  */
 
 func spellchecker(wordlist []string, queries []string) []string {
-	// Map for exact word matches
-	perfectMap := make(map[string]bool)
-	// Map for case-insensitive matches, storing original word
-	caseMap := make(map[string]string)
-	// Map for vowel-insensitive matches, storing original word
-	vowelMap := make(map[string]string)
+	// exact stores all words in wordlist for exact match checking.
+	exact := map[string]struct{}{}
 
 	for _, word := range wordlist {
-		// Add word to perfect match map
-		perfectMap[word] = true
-		lowWord := strings.ToLower(word)
+		exact[word] = struct{}{}
+	}
 
-		// Store first occurrence of case-insensitive word
-		if caseMap[lowWord] == "" {
-			caseMap[lowWord] = word
-		}
+	// caseInsensitive maps lowercased words to their original form for case-insensitive matching.
+	caseInsensitive := map[string]string{}
 
-		// Replace vowels with asterisks for vowel-insensitive matching
-		chars := []byte(lowWord)
-		for i := range chars {
-			if chars[i] == 'a' || chars[i] == 'e' || chars[i] == 'i' || chars[i] == 'o' || chars[i] == 'u' {
-				chars[i] = '*'
-			}
-		}
+	for _, word := range wordlist {
+		lowerWord := strings.ToLower(word)
 
-		// Store first occurrence of vowel-insensitive word
-		if vowelMap[string(chars)] == "" {
-			vowelMap[string(chars)] = word
+		// Only set the mapping if it doesn't exist to preserve the first occurrence.
+		if _, exists := caseInsensitive[lowerWord]; !exists {
+			caseInsensitive[lowerWord] = word
 		}
 	}
 
-	// Result slice to store answers
-	results := make([]string, 0)
+	// devoweled maps words with vowels replaced by '*' to their original form for vowel error matching.
+	devoweled := map[string]string{}
 
-	for _, query := range queries {
-		// Try exact match first
-		if perfectMap[query] {
-			results = append(results, query)
-			continue
+	for _, word := range wordlist {
+		devoweledWord := devowel(word)
+
+		// Only set the mapping if it doesn't exist to preserve the first occurrence.
+		if _, exists := devoweled[devoweledWord]; !exists {
+			devoweled[devoweledWord] = word
 		}
-
-		// Try case-insensitive match
-		lowQuery := strings.ToLower(query)
-		if caseMap[lowQuery] != "" {
-			results = append(results, caseMap[lowQuery])
-			continue
-		}
-
-		// Try vowel-insensitive match
-		chars := []byte(lowQuery)
-		for i := range chars {
-			if chars[i] == 'a' || chars[i] == 'e' || chars[i] == 'i' || chars[i] == 'o' || chars[i] == 'u' {
-				chars[i] = '*'
-			}
-		}
-
-		if vowelMap[string(chars)] != "" {
-			results = append(results, vowelMap[string(chars)])
-			continue
-		}
-
-		// No match found
-		results = append(results, "")
 	}
+
+	// result stores the final answers for each query.
+	result := make([]string, len(queries))
 	
-	return results
+	for i, query := range queries {
+		// Check for exact match.
+		if _, exists := exact[query]; exists {
+			result[i] = query
+			continue
+		}
+		// Check for case-insensitive match.
+		if original, exists := caseInsensitive[strings.ToLower(query)]; exists {
+			result[i] = original
+			continue
+		}
+		// Check for vowel error match.
+		if original, exists := devoweled[devowel(query)]; exists {
+			result[i] = original
+			continue
+		}
+
+		// No match found, return empty string.
+		result[i] = ""
+	}
+
+	return result
+}
+
+// devowel replaces all vowels in the word with '*' and returns the new string.
+func devowel(word string) string {
+	lowerWord := strings.ToLower(word)
+
+	var builder strings.Builder
+
+	builder.Grow(len(lowerWord))
+	
+	for _, char := range lowerWord {
+		if isVowel(char) {
+			builder.WriteRune('*')
+		} else {
+			builder.WriteRune(char)
+		}
+	}
+
+	return builder.String()
+}
+
+// isVowel checks if the given rune is a vowel (a, e, i, o, u).
+func isVowel(char rune) bool {
+	return char == 'a' || char == 'e' || char == 'i' || char == 'o' || char == 'u'
 }
