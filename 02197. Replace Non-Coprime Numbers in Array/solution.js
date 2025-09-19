@@ -5,7 +5,7 @@
  *
  * Language: JavaScript
  *
- * Performance: Runtime - 29 ms (Beats 100%)
+ * Performance: Runtime - 10 ms (Beats 100%)
  */
 
 /**
