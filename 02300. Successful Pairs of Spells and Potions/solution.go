@@ -5,37 +5,53 @@
  *
  * Language: Golang
  *
- * Performance: Runtime - 15 ms (Beats 100%)
+ * Performance: Runtime - 5 ms (Beats 100%)
  */
 
 func successfulPairs(spells []int, potions []int, success int64) []int {
-	// Sort the potions slice in ascending order to enable binary search.
-	sort.Ints(potions)
-
-	// Iterate over each spell in the spells slice.
-	for spellIdx := 0; spellIdx < len(spells); spellIdx++ {
-		// Initialize binary search boundaries for potions.
-		left, right := 0, len(potions)
-
-		// Perform binary search to find the first potion that forms a successful pair.
-		for left < right {
-			// Calculate the middle index of the current search range.
-			mid := (left + right) / 2
-
-			// Check if the product of the current spell and potion meets or exceeds success.
-			if int64(potions[mid])*int64(spells[spellIdx]) >= success {
-				// If successful, narrow the search to the left half.
-				right = mid
-			} else {
-				// Otherwise, search the right half.
-				left = mid + 1
-			}
+	// Find the maximum value in potions to determine the size of the check array.
+	maxPotion := potions[0]
+	for _, potion := range potions {
+		if potion > maxPotion {
+			maxPotion = potion
 		}
-
-		// Store the count of successful pairs for the current spell.
-		spells[spellIdx] = len(potions) - left
 	}
 
-	// Return the updated spells slice containing counts of successful pairs.
-	return spells
+	// Initialize an array to count occurrences of each potion strength.
+	potionCount := make([]int, maxPotion+1)
+	// Prepare the result array to store the number of successful pairs for each spell.
+	result := make([]int, len(spells))
+
+	// Count how many potions have each strength.
+	for _, potion := range potions {
+		potionCount[potion]++
+	}
+
+	// Build a suffix sum so potionCount[i] holds the number of potions >= i.
+	for i := len(potionCount) - 2; i >= 0; i-- {
+		potionCount[i] += potionCount[i+1]
+	}
+
+	// For each spell, calculate the minimum required potion strength for success.
+	for i := 0; i < len(spells); i++ {
+		var minPotionRequired int64
+
+		// Compute the minimum potion strength needed for the spell to succeed.
+		if success%int64(spells[i]) != 0 {
+			minPotionRequired = success/int64(spells[i]) + 1
+		} else {
+			minPotionRequired = success / int64(spells[i])
+		}
+
+		// If the required strength exceeds available potions, set result to 0.
+		if minPotionRequired >= int64(len(potionCount)) {
+			result[i] = 0
+		} else {
+			// Otherwise, set result to the count of potions meeting the requirement.
+			result[i] = potionCount[minPotionRequired]
+		}
+	}
+
+	// Return the array containing the number of successful pairs for each spell.
+	return result
 }
