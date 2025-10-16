@@ -5,7 +5,7 @@
  *
  * Language: JavaScript
  *
- * Performance: Runtime - 61 ms (Beats 100%)
+ * Performance: Runtime - 23 ms (Beats 100%)
  */
 
 /**
@@ -18,46 +18,38 @@
  * @returns {number[]} - Number of successful pairs per spell
  */
 const successfulPairs = (spells, potions, success) => {
-  // Sort the potions array in ascending order for efficient processing
-  const sortedPotions = potions.sort((a, b) => a - b)
+  // Find the maximum potion strength to size the frequency array
+  const maxPotion = Math.max(...potions)
 
-  // Find the maximum value in the sorted potions array
-  const maxPotionStrength = Math.max(...sortedPotions)
+  // Create frequency array of counts for each strength 0..maxPotion
+  const freq = new Array(maxPotion + 1).fill(0)
 
-  // Initialize an array to map potion strengths to their counts
-  const potionCountMap = new Array(maxPotionStrength)
+  // Tally counts: increment freq at each potion strength
+  for (const p of potions) freq[p]++
 
-  // Set all elements in potionCountMap to zero
-  for (let i = 0; i <= maxPotionStrength; i++) potionCountMap[i] = 0
+  // Convert counts to prefix sums so freq[i] = count of <= i
+  for (let i = 1; i <= maxPotion; i++) freq[i] += freq[i - 1]
 
-  // Count occurrences of each potion strength in potionCountMap
-  sortedPotions.forEach(
-    (potion) => (potionCountMap[potion] = potionCountMap[potion] + 1)
-  )
+  // Cache total number of potions for reuse in calculations
+  const totalPotions = potions.length
 
-  // Initialize count of potions with the maximum strength
-  let cumulativePotionCount = potionCountMap[maxPotionStrength]
+  // Initialize result array with zeros, one entry per spell
+  const result = new Array(spells.length).fill(0)
 
-  // Build cumulative counts for potion strengths in potionCountMap
-  for (let i = maxPotionStrength - 1; i > 0; i--) {
-    cumulativePotionCount += potionCountMap[i]
-    potionCountMap[i] = cumulativePotionCount
-  }
-
-  // Prepare an array to store the result for each spell
-  const successfulPairsResult = new Array(spells.length)
-
-  // For each spell, calculate the minimum required potion strength
+  // Loop over spells by index to compute successful pair counts
   for (let i = 0; i < spells.length; i++) {
-    const requiredPotionStrength = Math.ceil(success / spells[i])
+    // Current spell strength
+    const s = spells[i]
 
-    // If required strength exceeds available, set result to zero
-    if (requiredPotionStrength > potionCountMap.length - 1)
-      successfulPairsResult[i] = 0
-    // Otherwise, set result to the number of valid potions
-    else successfulPairsResult[i] = potionCountMap[requiredPotionStrength]
+    // Minimal potion strength k = ceil(success / s)
+    const k = Math.floor((success + s - 1) / s)
+
+    // If k within observed potion range, compute successful pairs
+    if (k <= maxPotion) result[i] = totalPotions - freq[k - 1]
+
+    // end of spell loop
   }
 
-  // Return the array of successful pairs for each spell
-  return successfulPairsResult
+  // Return the computed result array
+  return result
 }
