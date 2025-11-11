@@ -3,7 +3,7 @@
  *
  * Difficulty: Medium
  *
- * Language: TypeScript
+ * Language: C++
  *
  * Performance: Runtime - 0 ms (Beats 100%)
  */
