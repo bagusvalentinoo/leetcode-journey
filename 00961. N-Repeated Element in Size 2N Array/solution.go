@@ -3,7 +3,7 @@
  *
  * Difficulty: Easy
  *
- * Language: Go
+ * Language: Golang
  *
  * Performance: Runtime - 0 ms (Beats 100%)
  */
