@@ -9,80 +9,61 @@
  */
 
 func maxSideLength(mat [][]int, threshold int) int {
-	// Get the dimensions of the matrix.
+	// Get matrix dimensions
 	m, n := len(mat), len(mat[0])
 
-	// Precompute the prefix sum for the matrix.
-	for i := 0; i < m; i++ {
-		for j := 0; j < n; j++ {
-			// If we are at the first row, accumulate horizontally.
-			if i == 0 {
-				if j == 0 {
-					continue
+	// Create prefix sum matrix with extra row/column
+	prefixSum := make([][]int, m+1)
+	for i := range prefixSum {
+		prefixSum[i] = make([]int, n+1)
+	}
+
+	// Build 2D prefix sum matrix
+	for i := 1; i <= m; i++ {
+		for j := 1; j <= n; j++ {
+			// Calculate cumulative sum using inclusion-exclusion
+			prefixSum[i][j] = prefixSum[i-1][j] + prefixSum[i][j-1] -
+				prefixSum[i-1][j-1] + mat[i-1][j-1]
+		}
+	}
+
+	// Helper function to get sum of any submatrix in O(1)
+	getSubmatrixSum := func(x1, y1, x2, y2 int) int {
+		return prefixSum[x2][y2] - prefixSum[x1-1][y2] -
+			prefixSum[x2][y1-1] + prefixSum[x1-1][y1-1]
+	}
+
+	// Maximum possible square side limited by matrix dimensions
+	maxPossibleSide := min(m, n)
+
+	// Track best square side found
+	bestSide := 0
+
+	// Try all possible starting positions
+	for i := 1; i <= m; i++ {
+		for j := 1; j <= n; j++ {
+			// Try squares larger than current best
+			for side := bestSide + 1; side <= maxPossibleSide; side++ {
+				// Check if square fits within matrix boundaries
+				endRow := i + side - 1
+				endCol := j + side - 1
+
+				if endRow > m || endCol > n {
+					break
 				}
-				mat[i][j] += mat[i][j-1]
-			} else if j == 0 {
-				// If we are at the first column, accumulate vertically.
-				mat[i][j] += mat[i-1][j]
-			} else {
-				// For other cells, calculate the prefix sum using the
-				// inclusion-exclusion principle.
-				mat[i][j] += mat[i-1][j] + mat[i][j-1] - mat[i-1][j-1]
+
+				// Calculate sum of current square
+				squareSum := getSubmatrixSum(i, j, endRow, endCol)
+
+				// Update best side if sum ≤ threshold
+				if squareSum <= threshold {
+					bestSide = side
+				} else {
+					break // Larger squares will have larger sums
+				}
 			}
 		}
 	}
 
-	// Initialize the result variable to store the maximum side length.
-	var res int
-
-	// Define the binary search range for the side length.
-	left, right := 1, min(m, n)
-
-	// Perform binary search to find the maximum valid side length.
-	for left <= right {
-		// Calculate the middle value of the current range.
-		mid := left + (right-left)/2
-
-		// Check if a square of side length `mid` is possible.
-		if possible(mat, threshold, mid) {
-			// Update the result and adjust the search range.
-			res = max(res, mid)
-			left = mid + 1
-		} else {
-			right = mid - 1
-		}
-	}
-
-	// Return the maximum side length found.
-	return res
-}
-
-func possible(mat [][]int, threshold int, side int) bool {
-	// Iterate over all possible top-left corners of the square.
-	for i := side - 1; i < len(mat); i++ {
-		for j := side - 1; j < len(mat[i]); j++ {
-			// Calculate the sum of the square using the prefix sum matrix.
-			sum := mat[i][j]
-
-			// Subtract the area above the square if it exists.
-			if i-side >= 0 {
-				sum -= mat[i-side][j]
-			}
-			// Subtract the area to the left of the square if it exists.
-			if j-side >= 0 {
-				sum -= mat[i][j-side]
-			}
-			// Add back the overlapping area if it exists.
-			if i-side >= 0 && j-side >= 0 {
-				sum += mat[i-side][j-side]
-			}
-			// Check if the sum is within the threshold.
-			if sum <= threshold {
-				return true
-			}
-		}
-	}
-
-	// Return false if no valid square is found.
-	return false
+	return bestSide
 }
