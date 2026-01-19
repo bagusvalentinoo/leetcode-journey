@@ -5,61 +5,62 @@
  *
  * Language: JavaScript
  *
- * Performance: Runtime - 8 ms (Beats 100%)
+ * Performance: Runtime - 5 ms (Beats 100%)
  */
 
 /**
- * Find the largest square side length with sum ≤ threshold
+ * Finds maximum square side length where sum ≤ threshold
  *
- * @param {number[][]} mat - 2D matrix
- * @param {number} threshold - Max allowed sum
+ * @param {number[][]} mat - Input matrix of integers
+ * @param {number} threshold - Maximum allowed sum for square
  *
- * @returns {number} - Largest square side length
+ * @returns {number} - Maximum square side length
  */
 const maxSideLength = (mat, threshold) => {
-  // Get the number of rows (m) and columns (n) in the matrix
-  const m = mat.length,
-    n = mat[0].length
+  // Get matrix dimensions
+  const m = mat.length, n = mat[0].length
 
-  // Initialize a 2D array `dp` to store prefix sums
-  const dp = []
+  // Create prefix sum matrix with extra row/column for easier calculations
+  const prefixSum = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0))
 
-  // Fill the `dp` array with zeros, with dimensions (m+1) x (n+1)
-  for (let i = 0; i <= m; i++) dp[i] = new Array(n + 1).fill(0)
-
-  // Compute the prefix sum for each cell in the matrix
+  // Build 2D prefix sum matrix
   for (let i = 1; i <= m; i++) {
     for (let j = 1; j <= n; j++) {
-      dp[i][j] =
-        dp[i - 1][j] + dp[i][j - 1] + mat[i - 1][j - 1] - dp[i - 1][j - 1]
+      // Calculate cumulative sum using inclusion-exclusion principle
+      prefixSum[i][j] = prefixSum[i - 1][j] + prefixSum[i][j - 1] -
+        prefixSum[i - 1][j - 1] + mat[i - 1][j - 1]
     }
   }
 
-  // Initialize the maximum side length of the square to 0
-  let maxLen = 0
+  // Helper function to get sum of any submatrix in O(1)
+  const getSubmatrixSum = (x1, y1, x2, y2) => prefixSum[x2][y2] - prefixSum[x1 - 1][y2] -
+    prefixSum[x2][y1 - 1] + prefixSum[x1 - 1][y1 - 1]
 
-  // Iterate through each cell in the matrix to find the largest square
+  // Maximum possible square side limited by matrix dimensions
+  const maxPossibleSide = Math.min(m, n)
+
+  // Track best square side found
+  let bestSide = 0
+
+  // Try all possible starting positions
   for (let i = 1; i <= m; i++) {
     for (let j = 1; j <= n; j++) {
-      // Start with the current maximum square length
-      let len = maxLen
+      // Try squares larger than current best
+      for (let side = bestSide + 1; side <= maxPossibleSide; side++) {
+        // Check if square fits within matrix boundaries
+        const endRow = i + side - 1, endCol = j + side - 1
 
-      // Check if a square of increasing size can fit within the threshold
-      while (i - len >= 0 && j - len >= 0) {
-        // Calculate the sum of the square using the prefix sum array
-        const sum =
-          dp[i][j] - dp[i - len][j] - dp[i][j - len] + dp[i - len][j - len]
+        if (endRow > m || endCol > n) break
 
-        // If the sum exceeds the threshold, stop checking larger squares
-        if (sum > threshold) break
+        // Calculate sum of current square
+        const squareSum = getSubmatrixSum(i, j, endRow, endCol)
 
-        // Update the maximum square length if the current square is valid
-        maxLen = Math.max(maxLen, len)
-        len++
+        // Update best side if sum ≤ threshold
+        if (squareSum <= threshold) bestSide = side
+        else break // Larger squares will have larger sums
       }
     }
   }
 
-  // Return the largest square side length found
-  return maxLen
+  return bestSide
 }
