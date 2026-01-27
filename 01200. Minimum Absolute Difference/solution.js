@@ -15,7 +15,7 @@
  *
  * @returns {number[][]} - Pairs with minimum absolute difference
  */
-const minimumAbsDifference = (arr) => {
+const minimumAbsDifference = arr => {
   // Convert input array to Int32Array for performance and sort in ascending order
   arr = new Int32Array(arr).sort()
 
