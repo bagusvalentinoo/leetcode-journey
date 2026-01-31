@@ -19,6 +19,7 @@ public class Solution {
         // Initialize distance matrix with maximum values
         for (int i = 0; i < 26; i++) {
             distance[i] = new long[26];
+            
             for (int j = 0; j < 26; j++) distance[i][j] = long.MaxValue;
         }
         
