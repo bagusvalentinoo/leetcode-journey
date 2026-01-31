@@ -63,7 +63,6 @@ const minimumCost = (source, target, original, changed, cost) => {
 
         // Skip if characters already match
         if (sourceIndex === targetIndex) continue
-
         // Return -1 if transformation is impossible
         if (!isFinite(distance[sourceIndex][targetIndex])) return -1
 
