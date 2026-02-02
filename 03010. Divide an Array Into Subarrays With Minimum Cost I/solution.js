@@ -23,10 +23,12 @@ const minimumCost = nums => {
     let minCost = Infinity
 
     // Try all pairs of elements (excluding first element)
-    for (let i = 1; i < arrayLength - 1; i++)
-        for (let j = i + 1; j < arrayLength; j++)
+    for (let i = 1; i < arrayLength - 1; i++) {
+        for (let j = i + 1; j < arrayLength; j++) {
             // Calculate cost for current pair
             minCost = Math.min(minCost, nums[0] + nums[i] + nums[j])
+        }
+    }
 
     // Return minimum cost found
     return minCost
