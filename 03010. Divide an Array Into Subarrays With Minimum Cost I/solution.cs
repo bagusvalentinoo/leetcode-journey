@@ -20,7 +20,7 @@ public class Solution {
             if (nums[i] <= smallest) {
                 secondSmallest = smallest;
                 smallest = nums[i];
-            } 
+            }
             // Update only second smallest if value is between smallest and secondSmallest
             else if (nums[i] <= secondSmallest) {
                 secondSmallest = nums[i];
