@@ -20,6 +20,7 @@ func minimumCost(nums []int) int {
         for j := i + 1; j < arrayLength; j++ {
             // Calculate cost for current pair
             currentCost := nums[0] + nums[i] + nums[j]
+            
             if currentCost < minCost {
                 minCost = currentCost
             }
