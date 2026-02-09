@@ -29,6 +29,7 @@ func isTrionic(nums []int) bool {
 	if pointer == 0 {
 		return false
 	}
+
 	decreasingStart := pointer
 
 	// Second segment: strictly decreasing
@@ -40,6 +41,7 @@ func isTrionic(nums []int) bool {
 	if pointer == decreasingStart {
 		return false
 	}
+	
 	increasingStart := pointer
 
 	// Third segment: strictly increasing
