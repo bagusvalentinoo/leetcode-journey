@@ -28,6 +28,7 @@ public:
         // Check if we had at least one increasing step
         if (pointer == 0)
             return false;
+
         int decreasingStart = pointer;
 
         // Second segment: strictly decreasing
@@ -37,6 +38,7 @@ public:
         // Check if we had at least one decreasing step
         if (pointer == decreasingStart)
             return false;
+        
         int increasingStart = pointer;
 
         // Third segment: strictly increasing
