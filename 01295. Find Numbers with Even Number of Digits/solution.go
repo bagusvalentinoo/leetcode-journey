@@ -9,29 +9,16 @@
  */
 
 func findNumbers(nums []int) int {
-	// Initialize a counter to keep track of numbers with even digit counts
-	cnt := 0
+	// Initialize counter for numbers with even digits
+	count := 0
 
-	// Iterate over each number in the input slice
+	// Iterate through each number in the array
 	for _, num := range nums {
-		// Initialize a variable to count the number of digits in the current number
-		size := 0
-
-		// Loop to calculate the number of digits in the current number
-		for num > 0 {
-			// Increment the digit count
-			size++
-			// Remove the last digit from the number
-			num /= 10
-		}
-
-		// Check if the digit count is even
-		if size&1 == 0 {
-			// Increment the counter for numbers with even digit counts
-			cnt++
+		// Convert number to string and check if length is even
+		if len(strconv.Itoa(num))%2 == 0 {
+			count++
 		}
 	}
-	
-	// Return the total count of numbers with even digit counts
-	return cnt
+
+	return count
 }
