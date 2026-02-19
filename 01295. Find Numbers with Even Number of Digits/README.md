@@ -3,8 +3,9 @@
     1295. Find Numbers with Even Number of Digits
   </a>
 </h1>
-<img src='https://img.shields.io/badge/Difficulty-Easy-greenlight' alt='Difficulty: Easy' />
-<img src='https://img.shields.io/badge/Topics-Array%2C%20Math%2C%20Weekly%20Contest%20168-blue' alt='Topics: Array, Math, Weekly Contest 168' />
+
+<img src="https://img.shields.io/badge/Difficulty-Easy-greenlight" alt="Difficulty: Easy" />
+<img src="https://img.shields.io/badge/Topics-Mid%20Level%2C%20Array%2C%20Math%2C%20Weekly%20Contest%20168-blue" alt="Topics: Mid Level, Array, Math, Weekly Contest 168" />
 
 <hr />
 
