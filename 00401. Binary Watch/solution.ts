@@ -16,17 +16,17 @@
  * @returns Number of 1 bits in the binary representation
  */
 const countBits = (num: number): number => {
-    let bitCount = 0
+  let bitCount = 0
 
-    // Iterate through each bit until number becomes 0
-    while (num) {
-        // Add least significant bit
-        bitCount += num & 1
-        // Shift right to process next bit
-        num >>= 1
-    }
+  // Iterate through each bit until number becomes 0
+  while (num) {
+    // Add least significant bit
+    bitCount += num & 1
+    // Shift right to process next bit
+    num >>= 1
+  }
 
-    return bitCount
+  return bitCount
 }
 
 /**
@@ -37,18 +37,18 @@ const countBits = (num: number): number => {
  * @returns All possible times the watch could represent
  */
 const readBinaryWatch = (turnedOn: number): string[] => {
-    const validTimes: string[] = []
+  const validTimes: string[] = []
 
-    // Hours range from 0 to 11, minutes from 0 to 59
-    for (let hour = 0; hour < 12; hour++) {
-        for (let minute = 0; minute < 60; minute++) {
-            // Check if total LEDs on equals turnedOn count
-            if (countBits(hour) + countBits(minute) === turnedOn) {
-                // Format time with leading zero for minutes < 10
-                validTimes.push(`${hour}:${minute < 10 ? '0' + minute : minute}`)
-            }
-        }
+  // Hours range from 0 to 11, minutes from 0 to 59
+  for (let hour = 0; hour < 12; hour++) {
+    for (let minute = 0; minute < 60; minute++) {
+      // Check if total LEDs on equals turnedOn count
+      if (countBits(hour) + countBits(minute) === turnedOn) {
+        // Format time with leading zero for minutes < 10
+        validTimes.push(`${hour}:${minute < 10 ? '0' + minute : minute}`)
+      }
     }
+  }
 
-    return validTimes
+  return validTimes
 }
