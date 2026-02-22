@@ -5,50 +5,66 @@
  *
  * Language: C#
  *
- * Performance: Runtime -2 ms (Beats 100%)
+ * Performance: Runtime 0 ms (Beats 100%)
  */
 
 public class Solution
 {
-  public IList<string> ReadBinaryWatch(int turnedOn)
+  private void GenerateValidHours(
+    List<string> validTimes,
+    int currentLedIndex,
+    int ledsToUse,
+    int currentHour,
+    int currentMinute
+  )
   {
-    // Initialize result list
-    IList<string> validTimes = new List<string>();
-
-    // Hours range from 0 to 11, minutes from 0 to 59
-    for (int hour = 0; hour < 12; hour++)
+    // Base case: used all LEDs
+    if (ledsToUse == 0)
     {
-      for (int minute = 0; minute < 60; minute++)
-      {
-        // Check if total LEDs on equals turnedOn count
-        if (CountBits(hour) + CountBits(minute) == turnedOn)
-        {
-          // Format time with leading zero for minutes < 10
-          validTimes.Add($"{hour}:{minute:D2}");
-        }
-      }
+      // Format minute with leading zero if needed
+      string minuteString =
+        currentMinute < 10 ? "0" + currentMinute.ToString() : currentMinute.ToString();
+
+      // Add valid time to result list
+      validTimes.Add(currentHour + ":" + minuteString);
+
+      // Backtrack
+      return;
     }
 
-    return validTimes;
+    // Skip current LED without using it
+    if (currentLedIndex > ledsToUse - 1)
+      GenerateValidHours(validTimes, currentLedIndex - 1, ledsToUse, currentHour, currentMinute);
+
+    // Track new hour and minute values
+    int newMinute = currentMinute;
+    int newHour = currentHour;
+
+    // Determine if current LED belongs to hour or minute section
+    // LEDs 0-5 represent minutes, LEDs 6-9 represent hours
+    if (currentLedIndex > 5)
+      newHour += (int)Math.Pow(2, currentLedIndex - 6); // Add to hour
+    else
+      newMinute += (int)Math.Pow(2, currentLedIndex); // Add to minute
+
+    // Use current LED only if resulting time is valid
+    if (newHour < 12 && newMinute < 60)
+      GenerateValidHours(validTimes, currentLedIndex - 1, ledsToUse - 1, newHour, newMinute);
   }
 
-  // Counts number of 1 bits using optimized bit manipulation (popcount)
-  private static int CountBits(int number)
+  public IList<string> ReadBinaryWatch(int turnedOn)
   {
-    // Count bits in 2-bit groups
-    number = number - ((number >> 1) & 0x55555555);
+    // If more than 9 LEDs are on, no valid time exists
+    if (turnedOn > 9)
+      return new List<string>();
 
-    // Count bits in 4-bit groups
-    number = (number & 0x33333333) + ((number >> 2) & 0x33333333);
+    // List to store all valid times
+    List<string> validTimes = new List<string>();
 
-    // Count bits in 8-bit groups
-    number = (number + (number >> 4)) & 0x0f0f0f0f;
+    // Generate all valid times using backtracking
+    GenerateValidHours(validTimes, 9, turnedOn, 0, 0);
 
-    // Sum all 8-bit groups
-    number = number + (number >> 8);
-    number = number + (number >> 16);
-
-    // Mask to get only the lower 6 bits (maximum 32)
-    return number & 0x3f;
+    // Return list of valid times
+    return validTimes;
   }
 }
