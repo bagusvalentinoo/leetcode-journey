@@ -13,21 +13,40 @@
  *
  * @param {TreeNode} root - The root of the binary tree
  *
- * @returns {number} - The sum of all binary numbers formed by root-to-leaf paths
+ * @returns {number} The sum of all binary numbers formed by root-to-leaf paths
  */
 const sumRootToLeaf = (root) => {
-  // Performs depth-first traversal to accumulate binary values
-  const dfs = (node, currentValue) => {
-    if (!node) return 0
+  // Array to store binary strings from root-to-leaf paths
+  const binaryStrings = []
 
-    // Left shift current value and add current node's bit
-    const newValue = (currentValue << 1) | node.val
-    // If leaf node, return the accumulated binary value
-    if (!node.left && !node.right) return newValue
+  // Depth-first traversal to collect all root-to-leaf paths as binary strings
+  const dfs = (node, currentPath) => {
+    // Append current node's value to path
+    currentPath += node.val
 
-    // Recursively process left and right subtrees
-    return dfs(node.left, newValue) + dfs(node.right, newValue)
+    // If leaf node, store the complete binary string
+    if (!node.left && !node.right) {
+      // Push the complete binary string to the array
+      binaryStrings.push(currentPath)
+
+      // Return to previous call
+      return
+    }
+
+    // Recursively traverse left and right subtrees
+    if (node.left) dfs(node.left, currentPath)
+    if (node.right) dfs(node.right, currentPath)
   }
 
-  return dfs(root, 0)
+  // Start DFS from root with empty string
+  dfs(root, '')
+
+  // Convert all binary strings to numbers and sum them
+  const totalSum = binaryStrings.reduce(
+    (accumulator, binaryString) => accumulator + parseInt(binaryString, 2),
+    0
+  )
+
+  // Return the total sum
+  return totalSum
 }
