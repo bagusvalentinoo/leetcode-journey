@@ -9,23 +9,35 @@
  */
 
 func sumRootToLeaf(root *TreeNode) int {
-	// Performs depth-first traversal to accumulate binary values
-	var dfs func(node *TreeNode, currentValue int) int
-	dfs = func(node *TreeNode, currentValue int) int {
+	// Initialize sum accumulator
+	totalSum := 0
+
+	// Define DFS function as a closure
+	var dfs func(node *TreeNode, currentVal int)
+
+	// DFS function to accumulate binary values
+	dfs = func(node *TreeNode, currentVal int) {
+		// Base case: null node does nothing
 		if node == nil {
-			return 0
+			return
 		}
 
-		// Left shift current value and add current node's bit
-		newValue := (currentValue << 1) | node.Val
-		// If leaf node, return the accumulated binary value
+		// Update binary value: shift left (multiply by 2) and add current node's bit
+		newVal := currentVal*2 + node.Val
+
+		// If leaf node, add to total sum
 		if node.Left == nil && node.Right == nil {
-			return newValue
+			totalSum += newVal
 		}
 
-		// Recursively process left and right subtrees
-		return dfs(node.Left, newValue) + dfs(node.Right, newValue)
+		// Recursively traverse left and right subtrees
+		dfs(node.Left, newVal)
+		dfs(node.Right, newVal)
 	}
 
-	return dfs(root, 0)
+	// Start DFS from root with initial value 0
+	dfs(root, 0)
+
+	// Return the total sum
+	return totalSum
 }
