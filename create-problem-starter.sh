@@ -103,7 +103,7 @@ create_file "$FOLDER/README.md" "$(cat <<EOF
 </h1>
 
 <img src="https://img.shields.io/badge/Difficulty-$DIFFICULTY-$COLOR" alt="Difficulty: $DIFFICULTY" />
-<img src="https://img.shields.io/badge/Topics-Array%2C%20Greedy%2C%20Sliding%20Window-blue" alt="Topics: " />
+<img src="https://img.shields.io/badge/Topics--blue" alt="Topics: " />
 
 <hr />
 
