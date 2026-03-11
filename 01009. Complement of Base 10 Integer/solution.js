@@ -9,17 +9,17 @@
  */
 
 /**
- * Return the complement of the given integer by flipping all bits in its binary representation
+ * Returns complement by flipping all bits
  *
- * @param {number} n - The input integer
+ * @param {number} n - Input integer
  *
- * @returns {number} - The complement of the integer
+ * @returns {number} Complement of n
  */
 const bitwiseComplement = (n) => {
   // Handle edge case: complement of 0 is 1
   if (n === 0) return 1
 
-  // Initialize bitmask to cover all bits in n
+  // Initialize bitm`ask to cover all bits in n
   let bitmask = 1
 
   // Shift bitmask left until it's larger than n
