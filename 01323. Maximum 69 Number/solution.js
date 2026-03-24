@@ -13,6 +13,6 @@
  *
  * @param {number} num - Number with digits 6 and 9
  *
- * @returns {number} - Maximum possible number
+ * @returns {number} Maximum possible number
  */
 const maximum69Number = (num) => parseInt(num.toString().replace('6', '9'))
