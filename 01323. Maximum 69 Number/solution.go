@@ -8,16 +8,24 @@
  * Performance: Runtime - 0 ms (Beats 100%)
  */
 
-func maximum69Number (num int) int {
-	// Convert the integer num to its string representation
-	numStr := strconv.Itoa(num)
+func maximum69Number(num int) int {
+	// Convert number to string to access individual digits
+	s := strconv.Itoa(num)
 
-	// Replace the first occurrence of '6' with '9' in the string
-	updatedNumStr := strings.Replace(numStr, "6", "9", 1)
+	// Iterate through each character in the string
+	for i, c := range s {
+		// Find the first occurrence of '6'
+		if c == '6' {
+			// Change it to '9' by replacing character at index i
+			s = s[:i] + "9" + s[i+1:]
+			// Stop after changing at most one digit
+			break
+		}
+	}
 
-	// Convert the updated string back to an integer
-	result, _ := strconv.Atoi(updatedNumStr)
-	
-	// Return the resulting integer
+	// Convert back to integer
+	result, _ := strconv.Atoi(s)
+
+	// Return the maximum number
 	return result
 }
