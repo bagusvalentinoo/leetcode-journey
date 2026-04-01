@@ -9,23 +9,31 @@
  */
 
 func twoSum(nums []int, target int) []int {
-	// Use a map to store indices of numbers and find the complement to reach the target
-	seen := make(map[int]int)
-	
-	for i, num := range nums {
-		// Calculate the complement needed to reach the target
-		complement := target - num
+	// Map to store the values and their indices
+	temp := make(map[int]int)
 
-		// Check if the complement exists in the map
-		if j, exists := seen[complement]; exists {
-			// Return the indices if complement is found
-			return []int{j, i}
+	// Iterate through the array
+	for i, value := range nums {
+		// If the current value is already in the map, return the indices
+		if idx, exists := temp[value]; exists {
+			return []int{idx, i}
 		}
 
-		// Store the current number and its index in the map
-		seen[num] = i
+		// Calculate the pair value
+		var pair int
+
+		// Check if the current value is positive
+		if value > 0 {
+			pair = target - value
+		} else {
+			// If the current value is negative, add its absolute value to the target
+			pair = target + int(math.Abs(float64(value)))
+		}
+
+		// Store the pair value and its index in the map
+		temp[pair] = i
 	}
 
-	// Return nil if no solution is found
-	return nil
+	// Return empty slice if no solution found
+	return []int{}
 }
