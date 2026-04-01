@@ -9,19 +9,21 @@
  */
 
 /**
- * Finds the indices of the two numbers that add up to the target
+ * Finds two indices that sum to target
  *
- * @param {number[]} nums - Array of integers
- * @param {number} target - Target integer
+ * @param {number[]} nums - Input array
+ * @param {number} target - Target sum
  *
- * @returns {number[]} - Indices of the two numbers that add up to the target
+ * @returns {number[]} Indices of the two numbers
  */
 const twoSum = (nums, target) => {
-  let temp = {} // Temporary object to store the values and their indices
+  // Temporary object to store the values and their indices
+  let temp = {}
 
   // Iterate through the array
   for (i = 0; i < nums.length; i += 1) {
-    const value = nums[i] // Current value
+    // Current value
+    const value = nums[i]
 
     // If the current value is already in the object, return the indices
     if (temp[value] !== undefined) return [temp[value], i]
