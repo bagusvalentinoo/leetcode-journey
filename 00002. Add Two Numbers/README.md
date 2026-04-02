@@ -4,7 +4,7 @@
   </a>
 </h1>
 <img src='https://img.shields.io/badge/Difficulty-Medium-orange' alt='Difficulty: Medium' />
-<img src='https://img.shields.io/badge/Topics-Linked%20List%2C%20Math%2C%20Recursion-blue' alt='Topics: Linked List, Math, Recursion' />
+<img src='https://img.shields.io/badge/Topics-Principal%2C%20Linked%20List%2C%20Math%2C%20Recursion-blue' alt='Topics: Principal, Linked List, Math, Recursion' />
 
 <hr />
 
