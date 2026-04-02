@@ -5,55 +5,58 @@
  *
  * Language: JavaScript
  *
- * Performance: Runtime - 1 ms (Beats 99.74%)
+ * Performance: Runtime - 0 ms (Beats 100%)
  */
 
 /**
- * Adds two numbers represented by linked lists
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * Adds two numbers represented as linked lists
  *
- * @param {ListNode} l1 - The first linked list
- * @param {ListNode} l2 - The second linked list
+ * @param {ListNode} l1 - First linked list (digits in reverse order)
+ * @param {ListNode} l2 - Second linked list (digits in reverse order)
  *
- * @returns {ListNode} - The sum of the two linked lists
+ * @returns {ListNode} Head of result linked list
  */
 const addTwoNumbers = (l1, l2) => {
-  let carry = 0 // The carry value
-  let l1Current = l1 // The current node of the first linked list
-  let l2Current = l2 // The current node of the second linked list
-  let prev = null // The previous node of the result linked list
-  let root = null // The root of the result linked list
+  // Initialize carry for addition
+  let carry = 0
 
-  // Iterate through the linked lists
-  while (l1Current || l2Current) {
-    // Get the value of the current node of the first linked list
-    const l1CurrentVal = l1Current?.val || 0
-    // Get the value of the current node of the second linked list
-    const l2CurrentVal = l2Current?.val || 0
+  // Create dummy head to simplify result list construction
+  const dummyHead = new ListNode()
 
-    // Calculate the sum of the current nodes and the carry
-    const res = (l1CurrentVal + l2CurrentVal + carry) % 10
-    // Create a new node with the sum
-    const resNode = new ListNode(res)
+  // Pointer to track current node in result list
+  let currentNode = dummyHead
 
-    // If there is a previous node, set the next node to the result node
-    if (prev) prev.next = resNode
-    // If there is no previous node, set the root to the result node
-    else root = resNode
+  // Continue while there are digits in either list or carry exists
+  while (l1 || l2 || carry) {
+    // Calculate sum of current digits plus carry
+    const sum = (l1 ? l1.val : 0) + (l2 ? l2.val : 0) + carry
 
-    // Move to the next node
-    l1Current = l1Current?.next
-    l2Current = l2Current?.next
-    prev = resNode
+    // Update carry for next digit (integer division by 10)
+    carry = Math.floor(sum / 10)
 
-    // If the sum is greater than or equal to 10, set the carry to 1
-    if (l1CurrentVal + l2CurrentVal + carry >= 10) carry = 1
-    // If the sum is less than 10, set the carry to 0
-    else carry = 0
+    // Get current digit (remainder)
+    const digit = sum % 10
+
+    // Create new node with calculated digit
+    const newNode = new ListNode(digit)
+
+    // Append new node to result list
+    currentNode.next = newNode
+    // Move pointer to the new node
+    currentNode = currentNode.next
+
+    // Move to next nodes in input lists if they exist
+    l1 = l1 && l1.next
+    l2 = l2 && l2.next
   }
 
-  // If there is a carry, add it to the result linked list
-  if (carry === 1) prev.next = new ListNode(1)
-
-  // Return the root of the result linked list
-  return root
+  // Return the actual head of result list (skip dummy node)
+  return dummyHead.next
 }
