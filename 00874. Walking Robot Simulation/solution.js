@@ -5,73 +5,77 @@
  *
  * Language: JavaScript
  *
- * Performance: Runtime - 14 ms (Beats 100%)
+ * Performance: Runtime - 9 ms (Beats 100%)
  */
 
 /**
- * Simulates a robot's movement on an infinite XY-plane and returns the maximum squared Euclidean distance
+ * Simulates robot movement and returns max squared distance
  *
- * @param {number[]} commands - Array of commands for the robot
- * @param {number[][]} obstacles - Array of obstacle coordinates
+ * @param {number[]} commands - Robot commands
+ * @param {number[][]} obstacles - Obstacle coordinates
  *
- * @returns {number} - The maximum squared Euclidean distance from the origin
+ * @returns {number} Max squared distance from origin
  */
 const robotSim = (commands, obstacles) => {
-  // Directions: north, east, south, west
+  // Direction vectors: North, East, South, West
   const directions = [
-    [0, 1],
-    [1, 0],
-    [0, -1],
-    [-1, 0]
+    [0, 1], // North
+    [1, 0], // East
+    [0, -1], // South
+    [-1, 0] // West
   ]
 
-  /**
-   * Returns a unique hash for a coordinate
-   *
-   * @param {number} x - The x-coordinate
-   * @param {number} y - The y-coordinate
-   *
-   * @returns {number} - The unique hash for the coordinate
-   */
-  const getHash = (x, y) => x + (3 * 10 ** 4 + 1) * y
+  // Returns a unique hash for a coordinate to store in Set
+  const getHash = (x, y) => x + 30001 * y
 
-  // Create a set of obstacles for O(1) lookups
-  const obst = new Set(obstacles.map((obstacle) => getHash(...obstacle)))
-  let x = 0
-  let y = 0
-  let currDir = 0
-  let maxDist = 0
+  // Convert obstacles to a Set for O(1) lookup
+  const obstacleSet = new Set(obstacles.map((obstacle) => getHash(...obstacle)))
 
-  // Process each command
+  // Robot's current position
+  let x = 0,
+    y = 0
+
+  // Current direction index (0: North, 1: East, 2: South, 3: West)
+  let currentDirection = 0,
+    maxDistance = 0
+
+  // Process each command in sequence
   for (const command of commands) {
-    // Turn left
+    // Turn left (-2)
     if (command === -2) {
-      currDir = (currDir + 3) % 4
+      // Turning left decreases direction index (with modulo)
+      currentDirection = (currentDirection + 3) % 4
       continue
     }
 
-    // Turn right
+    // Turn right (-1)
     if (command === -1) {
-      currDir = (currDir + 1) % 4
+      // Turning right increases direction index (with modulo)
+      currentDirection = (currentDirection + 1) % 4
       continue
     }
 
-    // Move forward
-    for (let i = 0; i < command; i++) {
-      // Get direction vector
-      const [dx, dy] = directions[currDir]
-      const nx = x + dx
-      const ny = y + dy
+    // Move forward (1-9 steps)
+    for (let step = 0; step < command; step++) {
+      // Get current direction vector
+      const [dx, dy] = directions[currentDirection]
 
-      // Check for obstacles
-      if (obst.has(getHash(nx, ny))) break
+      // Calculate next position
+      const nextX = x + dx,
+        nextY = y + dy
 
-      // Update position and maximum distance
-      x = nx
-      y = ny
-      maxDist = Math.max(maxDist, x * x + y * y)
+      // Stop if next position is blocked by obstacle
+      if (obstacleSet.has(getHash(nextX, nextY))) break
+
+      // Update position
+      x = nextX
+      y = nextY
+
+      // Update maximum squared distance from origin
+      maxDistance = Math.max(maxDistance, x * x + y * y)
     }
   }
 
-  return maxDist
+  // Return the maximum squared distance from the origin
+  return maxDistance
 }
