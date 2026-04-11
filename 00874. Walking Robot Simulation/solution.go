@@ -9,64 +9,60 @@
  */
 
 func robotSim(commands []int, obstacles [][]int) int {
-	// Direction vectors: North, East, South, West
-	dirs := [4][2]int{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}
+	// Create map to store obstacle positions for O(1) lookup
+	oMap := make(map[int]bool)
 
-	// Set to store obstacle positions for O(1) lookup
-	obSet := make(map[[2]int]bool, len(obstacles))
-
-	// Convert each obstacle to a map key
+	// Add each obstacle to the map using hash
 	for _, o := range obstacles {
-		obSet[[2]int{o[0], o[1]}] = true
+		oMap[getHash(o[0], o[1])] = true
 	}
 
-	// Robot's current position
-	x, y := 0, 0
+	// Initial facing direction (North)
+	dirX, dirY := 0, 1
+	// Robot's starting position
+	posX, posY := 0, 0
 
-	// Current direction index (0: North, 1: East, 2: South, 3: West)
-	dir := 0
 	// Track maximum squared distance from origin
 	maxDist := 0
 
 	// Process each command in sequence
-	for _, cmd := range commands {
-		// Handle different command types using switch
-		switch cmd {
-		// Turn left (-2)
-		case -2:
-			dir = (dir + 3) % 4
-		// Turn right (-1)
-		case -1:
-			dir = (dir + 1) % 4
-		// Move forward (positive integer: number of steps)
-		default:
-			// Get direction vector for current facing direction
-			dx, dy := dirs[dir][0], dirs[dir][1]
+	for _, c := range commands {
+		// Turn left command
+		if c == -2 {
+			dirX, dirY = -dirY, dirX
+		} else if c == -1 {
+			// Turn right command
+			dirX, dirY = dirY, -dirX
+		} else if c >= 1 && c <= 9 {
+			// Movement command: move forward c steps
 
-			// Move step by step
-			for i := 0; i < cmd; i++ {
-				// Calculate next position
-				nx, ny := x+dx, y+dy
+			// Initialize step counter
+			j := 1
 
-				// Stop if next position is blocked by obstacle
-				if obSet[[2]int{nx, ny}] {
+			// Check each step for obstacles
+			for j <= c {
+				// If next step hits an obstacle, stop moving
+				if oMap[getHash(posX+j*dirX, posY+j*dirY)] {
 					break
 				}
 
-				// Update robot's position
-				x, y = nx, ny
-
-				// Calculate squared distance from origin
-				dist := x*x + y*y
-
-				// Update maximum distance if current is larger
-				if dist > maxDist {
-					maxDist = dist
-				}
+				// Move to next step
+				j++
 			}
+
+			// Update position to last valid step
+			posX, posY = posX+(j-1)*dirX, posY+(j-1)*dirY
+
+			// Update maximum distance if current position is farther
+			maxDist = max(maxDist, posX*posX+posY*posY)
 		}
 	}
 
-	// Return the maximum squared distance from origin
+	// Return the maximum squared distance
 	return maxDist
+}
+
+// Helper function to create unique hash for coordinate pair
+func getHash(x, y int) int {
+	return x*60013 + y
 }
