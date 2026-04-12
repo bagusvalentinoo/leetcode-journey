@@ -5,84 +5,101 @@
  *
  * Language: C#
  *
- * Performance: Runtime - 12 ms (Beats 100%)
+ * Performance: Runtime - 8 ms (Beats 100%)
  */
 
 public class Solution
 {
+  // Maximum squared distance from origin
+  int maxDist = 0;
+
+  // Current facing direction vector
+  int facingX = 0,
+    facingY = 1;
+
+  // Current robot position
+  int curX = 0,
+    curY = 0;
+
+  // Temporary variable for direction swapping
+  int temp = 0;
+
+  // Hash constant for coordinate mapping
+  const int HASH_VALUE = 60013;
+
+  // Set to store obstacle positions
+  HashSet<int> obstaclesSet;
+
   public int RobotSim(int[] commands, int[][] obstacles)
   {
-    // Direction vectors: North, East, South, West
-    int[][] directions = new int[][]
-    {
-      new int[] { 0, 1 }, // North
-      new int[] { 1, 0 }, // East
-      new int[] { 0, -1 }, // South
-      new int[] { -1, 0 }, // West
-    };
+    // Initialize hash set with obstacle capacity
+    obstaclesSet = new HashSet<int>(obstacles.Length);
 
-    // Returns a unique hash for a coordinate to store in Set
-    int GetHash(int x, int y) => x + 30001 * y;
-
-    // Create a HashSet to store obstacle positions for O(1) lookup
-    HashSet<int> obstacleSet = new HashSet<int>();
-
-    // Iterate through each obstacle and add its unique hash value to the set
-    foreach (var obstacle in obstacles)
-      obstacleSet.Add(GetHash(obstacle[0], obstacle[1]));
-
-    // Robot's current position
-    int x = 0,
-      y = 0;
-
-    // Current direction index (0: North, 1: East, 2: South, 3: West)
-    int currentDirection = 0,
-      maxDistance = 0;
+    // Add all obstacles to hash set
+    foreach (var item in obstacles)
+      obstaclesSet.Add(HashPoint(item[0], item[1]));
 
     // Process each command in sequence
-    foreach (int command in commands)
+    foreach (var command in commands)
     {
-      // Turn left (-2)
-      if (command == -2)
-      {
-        // Turning left decreases direction index (with modulo)
-        currentDirection = (currentDirection + 3) % 4;
-        continue;
-      }
+      // Handle turning commands (-1 = right, -2 = left)
+      if (command < 0)
+        ChangeDirection(command);
 
-      // Turn right (-1)
-      if (command == -1)
-      {
-        // Turning right increases direction index (with modulo)
-        currentDirection = (currentDirection + 1) % 4;
-        continue;
-      }
+      // Handle movement commands (positive integers)
+      Move(command);
 
-      // Move forward (1-9 steps)
-      for (int step = 0; step < command; step++)
-      {
-        // Get current direction vector
-        int dx = directions[currentDirection][0],
-          dy = directions[currentDirection][1];
-
-        // Calculate next position
-        int nextX = x + dx,
-          nextY = y + dy;
-
-        // Stop if next position is blocked by obstacle
-        if (obstacleSet.Contains(GetHash(nextX, nextY)))
-          break;
-
-        // Update position
-        x = nextX;
-        y = nextY;
-
-        // Update maximum squared distance from origin
-        maxDistance = Math.Max(maxDistance, x * x + y * y);
-      }
+      // Update maximum distance after each command
+      maxDist = GetMaxEuclidDist(curX, curY, maxDist);
     }
 
-    // Return the maximum squared distance from the origin
-    return maxDistance;
+    // Return the maximum squared distance
+    return maxDist;
+  }
+
+  // Changes robot's facing direction based on command
+  void ChangeDirection(int command)
+  {
+    // Store current facing X for swapping
+    temp = facingX;
+
+    // Swap facing X and Y to rotate 90 degrees
+    facingX = facingY;
+    facingY = temp;
+
+    // If turning left, negate the X direction component
+    if (command == -2)
+      facingX = -facingX;
+    // If turning right, negate the Y direction component
+    else
+      facingY = -facingY;
+  }
+
+  // Moves robot forward by specified steps
+  void Move(int command)
+  {
+    // Move step by step
+    while (command-- > 0)
+    {
+      // Stop if next position is blocked by obstacle
+      if (obstaclesSet.Contains(HashPoint(curX + facingX, curY + facingY)))
+        return;
+
+      // Move robot one step in the current X and Y direction
+      curX += facingX;
+      curY += facingY;
+    }
+  }
+
+  // Returns maximum squared Euclidean distance
+  int GetMaxEuclidDist(int x, int y, int other = 0)
+  {
+    return Math.Max(x * x + y * y, other);
+  }
+
+  // Creates unique hash for coordinate pair
+  static int HashPoint(int x, int y)
+  {
+    return x + y * HASH_VALUE;
   }
 }
