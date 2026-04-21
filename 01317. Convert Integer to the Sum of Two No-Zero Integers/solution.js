@@ -13,7 +13,7 @@
  *
  * @param {number} n - The target sum
  *
- * @returns {number[]} - An array containing the two integers
+ * @returns {number[]} An array containing the two integers
  */
 const getNoZeroIntegers = (n) => {
   // Iterate through all possible values for the first integer, starting from 1 up to n
