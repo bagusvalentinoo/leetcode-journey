@@ -9,31 +9,35 @@
  */
 
 func getNoZeroIntegers(n int) []int {
-	// containsZero checks if the given integer contains the digit zero.
-	containsZero := func(num int) bool {
-		for num > 0 {
-			// If the current digit is zero, return true.
-			if num%10 == 0 {
-				return true
+	// Iterate through all possible values for the first integer, starting from 1 up to n
+	for firstInt := 1; firstInt <= n; firstInt++ {
+		// Calculate the second integer so that their sum equals n
+		secondInt := n - firstInt
+
+		// Helper function to check if a number contains zero
+		containsZero := func(num int) bool {
+			// Continue while there are digits left to check
+			for num > 0 {
+				// If the last digit is zero, number contains zero
+				if num%10 == 0 {
+					return true
+				}
+
+				// Remove the last digit and continue checking
+				num /= 10
 			}
-			// Move to the next digit.
-			num /= 10
+
+			// No zero digit found in the number
+			return false
 		}
-		// No zero digit found, return false.
-		return false
-	}
 
-	// Iterate through all possible pairs (i, n-i) where i ranges from 1 to n-1.
-	for i := 1; i < n; i++ {
-		j := n - i // Calculate the second integer.
-
-		// Check if both i and j do not contain the digit zero.
-		if !containsZero(i) && !containsZero(j) {
-			// Return the pair as the result.
-			return []int{i, j}
+		// Check if both integers do not contain the digit '0'
+		if !containsZero(firstInt) && !containsZero(secondInt) {
+			// If both integers are valid, return them as a slice
+			return []int{firstInt, secondInt}
 		}
 	}
 
-	// If no valid pair is found, return an empty slice.
-	return []int{}
+	// Fallback return (should not reach here as per problem constraints)
+	return []int{-1, -1}
 }
