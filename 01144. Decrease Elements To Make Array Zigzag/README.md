@@ -4,7 +4,7 @@
   </a>
 </h1>
 <img src='https://img.shields.io/badge/Difficulty-Medium-orange' alt='Difficulty: Medium' />
-<img src='https://img.shields.io/badge/Topics-Array%2C%20Greedy%2C%20Sliding%20Window-blue' alt='Topics: Array, Greedy, Sliding Window' />
+<img src='https://img.shields.io/badge/Topics-Senior%2C%20Array%2C%20Greedy%2C%20Weekly%20Contest%20148-blue' alt='Topics: Senior, Array, Greedy, Weekly Contest 148' />
 
 <hr />
 
