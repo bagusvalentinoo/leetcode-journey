@@ -1,10 +1,10 @@
 <h1>
-  <a href="https://leetcode.com/problems/convert-integer-to-the-sum-of-two-no-zero-integers/">
+  <a href="https://leetcode.com/problems/convert-integer-to-the-sum-of-two-no-zero-integers/description/">
     1317. Convert Integer to the Sum of Two No-Zero Integers
   </a>
 </h1>
 <img src='https://img.shields.io/badge/Difficulty-Easy-greenlight' alt='Difficulty: Easy' />
-<img src='https://img.shields.io/badge/Topics-Math%2C%20Weekly%20Contest%20171-blue' alt='Topics: Math, Weekly Contest 171' />
+<img src='https://img.shields.io/badge/Topics-Mid%20Level%2C%20Math%2C%20Weekly%20Contest%20171-blue' alt='Topics: Mid Level, Math, Weekly Contest 171171' />
 
 <hr />
 
