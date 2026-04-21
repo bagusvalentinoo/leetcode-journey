@@ -13,20 +13,22 @@
  *
  * @param {number[]} nums - Input array
  *
- * @returns {number} - Minimum moves
+ * @returns {number} Minimum moves
  */
 const movesToMakeZigzag = (nums) => {
   // Helper function to calculate moves for a given zigzag pattern
   const calcMoves = (peakAtEven) => {
-    let moves = 0 // Initialize total moves counter
-    const n = nums.length // Store array length for reuse
+    // Initialize total moves counter
+    let moves = 0
+
+    // Store array length for reuse
+    const n = nums.length
 
     // Iterate through each element in the array
     for (let i = 0; i < n; i++) {
-      // Get left neighbor value or Infinity if out of bounds
-      const left = i > 0 ? nums[i - 1] : Infinity
-      // Get right neighbor value or Infinity if out of bounds
-      const right = i < n - 1 ? nums[i + 1] : Infinity
+      // Get left and right neighbor value or Infinity if out of bounds
+      const left = i > 0 ? nums[i - 1] : Infinity,
+        right = i < n - 1 ? nums[i + 1] : Infinity
 
       // Determine if current index should be a peak or valley
       if ((i % 2 === 0) !== peakAtEven) {
