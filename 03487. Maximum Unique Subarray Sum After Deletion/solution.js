@@ -13,7 +13,7 @@
  *
  * @param {number[]} nums - Input array
  *
- * @returns {number} - Sum or maximum value
+ * @returns {number} Sum or maximum value
  */
 const maxSum = (nums) => {
   // Check if all numbers in the array are negative
