@@ -4,13 +4,13 @@
   </a>
 </h1>
 <img src='https://img.shields.io/badge/Difficulty-Easy-greenlight' alt='Difficulty: Easy' />
-<img src='https://img.shields.io/badge/Topics-Array%2C%20Hash%20Table%2C%20Greedy%2C%20Weekly%20Contest%20441-blue' alt='Topics: Array, Hash Table, Greedy, Weekly Contest 441' />
+<img src='https://img.shields.io/badge/Topics-Mid%20Level%2C%20Array%2C%20Hash%20Table%2C%20Greedy%2C%20Weekly%20Contest%20441-blue' alt='Topics: Mid Level, Array, Hash Table, Greedy, Weekly Contest 441' />
 
 <hr />
 
 <p>You are given an integer array <code>nums</code>.</p>
 
-<p>You are allowed to delete any number of elements from <code>nums</code> without making it <strong>empty</strong>. After performing the deletions, select a <span data-keyword="subarray-nonempty" class=" cursor-pointer relative text-dark-blue-s text-sm"><button type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:r8u:" data-state="closed" class="">subarray</button></span> of <code>nums</code> such that:</p>
+<p>You are allowed to delete any number of elements from <code>nums</code> without making it <strong>empty</strong>. After performing the deletions, select a <span data-keyword="subarray-nonempty" class=" cursor-pointer relative text-dark-blue-s text-sm"><button type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-_r_1j_" data-state="closed" class="">subarray</button></span> of <code>nums</code> such that:</p>
 
 <ol>
 	<li>All elements in the subarray are <strong>unique</strong>.</li>
