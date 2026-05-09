@@ -11,6 +11,7 @@
 func numOfUnplacedFruits(fruits []int, baskets []int) int {
 	// Get the number of fruits
 	n := len(fruits)
+
 	// Track the number of fruits that have been placed in baskets
 	alloted := 0
 
@@ -24,6 +25,7 @@ func numOfUnplacedFruits(fruits []int, baskets []int) int {
 				baskets[j] = -1
 				// Increment the count of placed fruits
 				alloted++
+
 				// Move to the next fruit after placing
 				break
 			}
