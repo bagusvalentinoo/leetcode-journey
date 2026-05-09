@@ -14,7 +14,7 @@
  * @param {number[]} fruits - Array of fruit sizes
  * @param {number[]} baskets - Array of basket sizes
  *
- * @returns {number} - Number of unplaced fruits
+ * @returns {number} Number of unplaced fruits
  */
 const numOfUnplacedFruits = (fruits, baskets) => {
   // Initialize a counter for unplaced fruits
