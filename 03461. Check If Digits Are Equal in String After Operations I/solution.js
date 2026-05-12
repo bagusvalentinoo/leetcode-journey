@@ -9,11 +9,11 @@
  */
 
 /**
- * Checks if a string of digits reduces to two identical digits
+ * Checks if final two digits are identical after reduction
  *
- * @param {string} s - Numeric string input
+ * @param {string} s - Numeric string
  *
- * @returns {boolean} - True if final two digits are identical, else false
+ * @returns {boolean} True if last two digits match
  */
 const hasSameDigits = (s) => {
   // Initialize the length of the input string
