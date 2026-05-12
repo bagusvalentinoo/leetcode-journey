@@ -21,7 +21,7 @@ func hasSameDigits(s string) bool {
 		for i := 0; i < length-1; i++ {
 			// Calculate the sum of two adjacent digits, take modulo 10,
 			// and convert back to a byte representation
-			b[i] = ((b[i]-'0') + (b[i+1]-'0'))%10 + '0'
+			b[i] = ((b[i]-'0')+(b[i+1]-'0'))%10 + '0'
 		}
 
 		// Decrease the length to reflect the reduced size of the slice
