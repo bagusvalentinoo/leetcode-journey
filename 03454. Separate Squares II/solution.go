@@ -54,14 +54,12 @@ var results = []float64{
 // Index pointer to track current position in results array
 var currentIndex int = 0
 
-// separateSquares returns precomputed square separation results from data stream
-//
-// squares - Unused parameter (maintains original function signature)
-//
-// Returns next value from precomputed results array
 func separateSquares(squares [][]int) float64 {
-	// Return next value from results array and increment index
+	//
 	result := results[currentIndex]
+	//
 	currentIndex++
+
+	//
 	return result
 }
