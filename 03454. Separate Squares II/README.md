@@ -5,7 +5,7 @@
 </h1>
 
 <img src="https://img.shields.io/badge/Difficulty-Hard-darkred" alt="Difficulty: Hard" />
-<img src="https://img.shields.io/badge/Topics-Array%2C%20Binary%20Search%2C%20Segment%20Tree%2C%20Sweep%20Line%2C%20Biweekly%20Contest%20150-blue" alt="Topics: Array, Binary Search, Segment Tree, Sweep Line, Biweekly Contest 150" />
+<img src="https://img.shields.io/badge/Topics-Senior%20Staff%2C%20Array%2C%20Binary%20Search%2C%20Segment%20Tree%2C%20Sweep%20Line%2C%20Biweekly%20Contest%20150-blue" alt="Topics: Senior Staff, Array, Binary Search, Segment Tree, Sweep Line, Biweekly Contest 150" />
 
 <hr />
 
