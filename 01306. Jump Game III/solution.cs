@@ -12,26 +12,28 @@ public class Solution
 {
   public bool CanReach(int[] arr, int start)
   {
-    // Depth-first search to explore possible jumps
-    return Dfs(arr, start);
-  }
+    // Array to track visited indices to avoid infinite loops
+    var visited = new bool[arr.Length];
 
-  private bool Dfs(int[] arr, int index)
-  {
-    // Stop if index out of bounds or already visited
-    if (index < 0 || index >= arr.Length || arr[index] == -1)
-      return false;
-    // Return true if current value is zero
-    if (arr[index] == 0)
-      return true;
+    // Start DFS from the given index
+    return Dfs(start);
 
-    // Get the jump value
-    int jumpValue = arr[index];
+    // Recursive DFS function to explore possible jumps
+    bool Dfs(int currentIndex)
+    {
+      // If index is out of bounds or already visited, cannot proceed
+      if (currentIndex < 0 || currentIndex >= arr.Length || visited[currentIndex])
+        return false;
+      // If current position has value 0, we've reached the target
+      if (arr[currentIndex] == 0)
+        return true;
 
-    // Mark current index as visited (using -1 to indicate visited)
-    arr[index] = -1;
+      // Mark current index as visited to avoid revisiting
+      visited[currentIndex] = true;
 
-    // Try jumping left and right
-    return Dfs(arr, index - jumpValue) || Dfs(arr, index + jumpValue);
+      // Try jumping forward by the value at current index
+      // OR jumping backward by the value at current index
+      return Dfs(currentIndex + arr[currentIndex]) || Dfs(currentIndex - arr[currentIndex]);
+    }
   }
 }
