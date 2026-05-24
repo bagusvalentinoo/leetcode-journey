@@ -14,28 +14,35 @@
  * @param {number[]} nums - The rotated sorted array
  * @param {number} target - Value to search for
  *
- * @returns {number} - Index of target or -1 if not found
+ * @returns {number} Index of target or -1 if not found
  */
 const search = (nums, target) => {
-  // Initialize pointers for binary search
-  let start = 0,
-    end = nums.length - 1
+  // Initialize left and right pointers for binary search
+  let leftPointer = 0
+  let rightPointer = nums.length - 1
 
-  while (start <= end) {
+  // Perform binary search while pointers haven't crossed
+  while (leftPointer <= rightPointer) {
     // Calculate middle index
-    const middle = Math.floor((start + end) / 2)
+    const middleIndex = Math.floor((leftPointer + rightPointer) / 2)
 
-    // Return if target is found
-    if (nums[middle] === target) return middle
-    // Check if left side is sorted
-    if (nums[start] <= nums[middle]) {
-      // Check if target is in the sorted left half
-      if (nums[start] <= target && target < nums[middle]) end = middle - 1
-      else start = middle + 1
-    } else {
-      // Check if target is in the sorted right half
-      if (nums[middle] < target && target <= nums[end]) start = middle + 1
-      else end = middle - 1
+    // If middle element is target, return its index
+    if (nums[middleIndex] === target) return middleIndex
+    // Check if left half is sorted (no rotation break in left half)
+    if (nums[leftPointer] <= nums[middleIndex]) {
+      // If target lies within the sorted left half, search left
+      if (nums[leftPointer] <= target && target < nums[middleIndex])
+        rightPointer = middleIndex - 1
+      // Otherwise, search right half
+      else leftPointer = middleIndex + 1
+    }
+    // Right half must be sorted (rotation break in left half)
+    else {
+      // If target lies within the sorted right half, search right
+      if (nums[middleIndex] < target && target <= nums[rightPointer])
+        leftPointer = middleIndex + 1
+      // Otherwise, search left half
+      else rightPointer = middleIndex - 1
     }
   }
 
