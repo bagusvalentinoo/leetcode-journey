@@ -9,37 +9,40 @@
  */
 
 func search(nums []int, target int) int {
-  // Initialize pointers for binary search
-  start := 0
-  end := len(nums) - 1
+	// Initialize left and right pointers for binary search
+	leftPointer := 0
+	rightPointer := len(nums) - 1
 
-  for start <= end {
-    // Calculate middle index
-    middle := (start + end) / 2
+	// Perform binary search while pointers haven't crossed
+	for leftPointer <= rightPointer {
+		// Calculate middle index
+		middleIndex := leftPointer + (rightPointer-leftPointer)/2
 
-    // Return if target is found
-    if nums[middle] == target {
-      return middle
-    }
+		// If middle element is target, return its index
+		if nums[middleIndex] == target {
+			return middleIndex
+		}
+		// Check if left half is sorted (no rotation break in left half)
+		if nums[leftPointer] <= nums[middleIndex] {
+			// If target lies within the sorted left half, search left
+			if nums[leftPointer] <= target && target < nums[middleIndex] {
+				rightPointer = middleIndex - 1
+			} else {
+				// Otherwise, search right half
+				leftPointer = middleIndex + 1
+			}
+		} else {
+			// Right half must be sorted (rotation break in left half)
+			// If target lies within the sorted right half, search right
+			if nums[middleIndex] < target && target <= nums[rightPointer] {
+				leftPointer = middleIndex + 1
+			} else {
+				// Otherwise, search left half
+				rightPointer = middleIndex - 1
+			}
+		}
+	}
 
-    // Check if left side is sorted
-    if nums[start] <= nums[middle] {
-      // Check if target is in the sorted left half
-      if nums[start] <= target && target < nums[middle] {
-        end = middle - 1
-      } else {
-        start = middle + 1
-      }
-    } else {
-      // Check if target is in the sorted right half
-      if nums[middle] < target && target <= nums[end] {
-        start = middle + 1
-      } else {
-        end = middle - 1
-      }
-    }
-  }
-
-  // Target not found
-  return -1
+	// Target not found
+	return -1
 }
