@@ -1,0 +1,42 @@
+<h1>
+  <a href="https://leetcode.com/problems/generate-a-string-with-characters-that-have-odd-counts/">
+    1374. Generate a String With Characters That Have Odd Counts
+  </a>
+</h1>
+
+<img src="https://img.shields.io/badge/Difficulty-Easy-greenlight" alt="Difficulty: Easy" />
+<img src="https://img.shields.io/badge/Topics-Mid%20Level%2C%20String%2C%20Weekly%20Contest%20179-blue" alt="Topics: Mid Level, String, Weekly Contest 179" />
+
+<hr />
+
+<p>Given an&nbsp;integer <code>n</code>, <em>return a string with <code>n</code>&nbsp;characters such that each character in such string occurs <strong>an odd number of times</strong></em>.</p>
+
+<p>The returned string must contain only lowercase English letters. If there are multiples valid strings, return <strong>any</strong> of them. &nbsp;</p>
+
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+
+<pre><strong>Input:</strong> n = 4
+<strong>Output:</strong> "pppz"
+<strong>Explanation:</strong> "pppz" is a valid string since the character 'p' occurs three times and the character 'z' occurs once. Note that there are many other valid strings such as "ohhh" and "love".
+</pre>
+
+<p><strong class="example">Example 2:</strong></p>
+
+<pre><strong>Input:</strong> n = 2
+<strong>Output:</strong> "xy"
+<strong>Explanation:</strong> "xy" is a valid string since the characters 'x' and 'y' occur once. Note that there are many other valid strings such as "ag" and "ur".
+</pre>
+
+<p><strong class="example">Example 3:</strong></p>
+
+<pre><strong>Input:</strong> n = 7
+<strong>Output:</strong> "holasss"
+</pre>
+
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= n &lt;= 500</code></li>
+</ul>
