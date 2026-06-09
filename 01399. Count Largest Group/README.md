@@ -4,15 +4,15 @@
   </a>
 </h1>
 <img src='https://img.shields.io/badge/Difficulty-Easy-greenlight' alt='Difficulty: Easy' />
-<img src='https://img.shields.io/badge/Topics-Hash%20Table%2C%20Math-blue' alt='Topics: Hash Table, Math' />
+<img src="https://img.shields.io/badge/Topics-Mid%20Level%2C%20Hash%20Table%2C%20Math%2C%20Counting%2C%20Biweekly%20Contest%2023-blue" alt="Topics: Mid Level, Hash Table, Math, Counting, Biweekly Contest 23" />
 
 <hr />
 
 <p>You are given an integer <code>n</code>.</p>
 
-<p>Each number from <code>1</code> to <code>n</code> is grouped according to the sum of its digits.</p>
+<p>We need to group the numbers from <code>1</code> to <code>n</code> according to the sum of its digits. For example, the numbers 14 and 5 belong to the <strong>same</strong> group, whereas 13 and 3 belong to <strong>different</strong> groups.</p>
 
-<p>Return <em>the number of groups that have the largest size</em>.</p>
+<p>Return the number of groups that have the largest size, i.e. the <strong>maximum</strong> number of elements.</p>
 
 <p>&nbsp;</p>
 <p><strong class="example">Example 1:</strong></p>
