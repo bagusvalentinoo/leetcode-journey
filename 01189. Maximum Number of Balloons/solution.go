@@ -16,7 +16,7 @@ func maxNumberOfBalloons(text string) int {
 	for _, r := range text {
 		m[r]++
 	}
-	
+
 	// Calculate the maximum number of "balloon" words that can be formed.
 	// 'l' and 'o' appear twice in "balloon", so their counts are divided by 2.
 	// The minimum count among 'b', 'a', 'l'/2, 'o'/2, and 'n' determines the answer.
