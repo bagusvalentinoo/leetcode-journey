@@ -13,7 +13,7 @@
  *
  * @param {number[][]} points - Array of three points [x, y]
  *
- * @returns {boolean} - True if points form a boomerang
+ * @returns {boolean} True if points form a boomerang
  */
 const isBoomerang = (points) =>
   (points[0][0] - points[1][0]) * (points[0][1] - points[2][1]) !==
