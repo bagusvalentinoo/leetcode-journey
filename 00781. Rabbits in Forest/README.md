@@ -4,11 +4,11 @@
   </a>
 </h1>
 <img src='https://img.shields.io/badge/Difficulty-Medium-orange' alt='Difficulty: Medium' />
-<img src='https://img.shields.io/badge/Topics-Array%2C%20Hash%20Table%2C%20Math%2C%20Greedy-blue' alt='Topics: Array, Hash Table, Math, Greedy' />
+<img src='https://img.shields.io/badge/Topics-Staff%2C%20Array%2C%20Hash%20Table%2C%20Math%2C%20Greedy%2C%20Weekly%20Contest%2071-blue' alt='Topics: Staff, Array, Hash Table, Math, Greedy, Weekly Contest 71' />
 
 <hr />
 
-<p>There is a forest with an unknown number of rabbits. We asked n rabbits <strong>"How many rabbits have the same color as you?"</strong> and collected the answers in an integer array <code>answers</code> where <code>answers[i]</code> is the answer of the <code>i<sup>th</sup></code> rabbit.</p>
+<p>There is a forest with an unknown number of rabbits. We asked n rabbits <strong>"How many other rabbits have the same color as you?"</strong> and collected the answers in an integer array <code>answers</code> where <code>answers[i]</code> is the answer of the <code>i<sup>th</sup></code> rabbit.</p>
 
 <p>Given the array <code>answers</code>, return <em>the minimum number of rabbits that could be in the forest</em>.</p>
 
