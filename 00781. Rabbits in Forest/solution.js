@@ -13,7 +13,7 @@
  *
  * @param  {number[]} answers - Answers from rabbits
  *
- * @returns {number} - Minimum number of rabbits
+ * @returns {number} Minimum number of rabbits
  */
 const numRabbits = (answers) => {
   // Store the number of rabbits for each answer
