@@ -16,12 +16,16 @@
  * @returns {number} - Minimum number of rabbits
  */
 const numRabbits = (answers) => {
-  const map = new Map() // Store the number of rabbits for each answer
-  let count = 0 // Store the minimum number of rabbits
+  // Store the number of rabbits for each answer
+  const map = new Map()
+
+  // Store the minimum number of rabbits
+  let count = 0
 
   // Iterate through the answers
   for (let i = 0; i < answers.length; i++) {
-    const n = answers[i] // Current answer
+    // Current answer
+    const n = answers[i]
 
     // If the current answer is not in the map or the count is 0
     if (!map.has(n) || map.get(n) === 0) {
