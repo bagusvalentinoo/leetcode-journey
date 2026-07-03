@@ -14,15 +14,17 @@
  * @param {number[]} nums - The input array of integers
  * @param {number} k - The allowed range for modification
  *
- * @returns {number} - The minimum score of nums
+ * @returns {number} The minimum score of nums
  */
 const smallestRangeI = (nums, k) => {
-  const maxVal = Math.max(...nums) // Maximum value in nums
-  const minVal = Math.min(...nums) // Minimum value in nums
+  // Find maximum and minimum values in the array
+  const maxValue = Math.max(...nums),
+    minValue = Math.min(...nums)
 
-  const adjustedMax = maxVal - k // Adjusted maximum value
-  const adjustedMin = minVal + k // Adjusted minimum value
+  // Calculate adjusted values after applying ±k operation
+  const adjustedMax = maxValue - k,
+    adjustedMin = minValue + k
 
-  // Return 0 if no valid subarray exists
+  // If adjusted range overlaps, score is 0; otherwise return difference
   return adjustedMin >= adjustedMax ? 0 : adjustedMax - adjustedMin
 }
