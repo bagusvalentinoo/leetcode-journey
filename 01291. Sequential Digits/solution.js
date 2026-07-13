@@ -14,7 +14,7 @@
  * @param {number} low - Lower bound
  * @param {number} high - Upper bound
  *
- * @returns {number[]} - Sequential digits within range
+ * @returns {number[]} Sequential digits within range
  */
 const sequentialDigits = (low, high) => {
   // Define a string containing sequential digits from 1 to 9
