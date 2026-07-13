@@ -9,26 +9,33 @@
  */
 
 func sequentialDigits(low int, high int) []int {
-	// Define a slice containing all possible sequential digit numbers.
-	possible := []int{
-		12, 23, 34, 45, 56, 67, 78, 89, 123, 234, 345, 456, 567, 678, 789,
-		1234, 2345, 3456, 4567, 5678, 6789, 12345, 23456, 34567, 45678,
-		56789, 123456, 234567, 345678, 456789, 1234567, 2345678, 3456789,
-		12345678, 23456789, 123456789,
-	}
+    // Define a string containing sequential digits from 1 to 9
+    sequentialString := "123456789"
+    
+    // Initialize a slice to store the resulting sequential digits
+    result := make([]int, 0)
+    
+    // Outer loop to iterate through each character in the string
+    for start := 0; start < len(sequentialString); start++ {
+        // Inner loop to create substrings starting from the current character
+        for end := start + 1; end < len(sequentialString); end++ {
+            // Extract the substring and convert it to an integer
+            number, _ := strconv.Atoi(sequentialString[start : end+1])
+            
+            // Break the loop if the number exceeds the upper bound
+            if number > high {
+                break
+            }
+            // Add the number to the result slice if it is within the range
+            if low <= number {
+                result = append(result, number)
+            }
+        }
+    }
 
-	// Initialize an empty slice to store the result.
-	var ans []int
+    // Sort the result slice in ascending order
+    sort.Ints(result)
 
-	// Iterate through the possible sequential digit numbers.
-	for _, num := range possible {
-		// Check if the current number is within the range [low, high].
-		if low <= num && num <= high {
-			// Append the number to the result slice if it is in range.
-			ans = append(ans, num)
-		}
-	}
-
-	// Return the resulting slice of sequential digit numbers.
-	return ans
+    // Return the sorted slice containing sequential digits within the range
+    return result
 }
