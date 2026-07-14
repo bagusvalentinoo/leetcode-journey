@@ -9,25 +9,48 @@
  */
 
 func removeOuterParentheses(s string) string {
-	// Track nesting depth of parentheses
+	// Track current nesting depth
 	depth := 0
-	// Store characters that are not outermost parentheses
-	var result []rune
 
-	// Iterate through string, only keeping parentheses that aren't at depth 0 (outermost)
-	for _, char := range s {
-		if char == '(' {
-			if depth > 0 {
-				result = append(result, char)
-			}
+	// StringBuilder to efficiently build result string
+	var result strings.Builder
+
+	// Iterate through each character in the string
+	for i := 0; i < len(s); i++ {
+		// If character is an opening parenthesis
+		if s[i] == '(' {
+			// Increment depth for nested parentheses
 			depth++
-		} else {
-			depth--
-			if depth > 0 {
-				result = append(result, char)
+
+			// Find the matching closing parenthesis for this primitive string
+			for j := i + 1; j < len(s); j++ {
+				// If character is an opening parenthesis, increment depth
+				if s[j] == '(' {
+					depth++
+					continue
+				}
+
+				// If character is a closing parenthesis
+				if s[j] == ')' {
+					// Decrement depth
+					depth--
+
+					// If depth reaches 0, we found the matching closing parenthesis
+					if depth == 0 {
+						// Write the inner substring (excluding outermost parentheses)
+						result.WriteString(s[i+1 : j])
+
+						// Move pointer to the matching closing parenthesis
+						i = j
+
+						// Exit inner loop
+						break
+					}
+				}
 			}
 		}
 	}
 
-	return string(result)
+	// Return the resulting string with outermost parentheses removed
+	return result.String()
 }
