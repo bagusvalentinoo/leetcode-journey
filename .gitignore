@@ -175,3 +175,63 @@ dist
 
 # Finder (MacOS) folder config
 .DS_Store
+
+# AI Assistants, Agents & Workspace Configuration
+AGENTS.md
+agents.md
+CLAUDE.md
+GEMINI.md
+COPILOT.md
+*.agent.md
+.copilot-instructions.md
+.github/copilot-instructions.md
+
+# OpenCode, OpenHands & OpenDevin
+opencode.json
+opencode.md
+.opencode/
+.openhands/
+.opendevin/
+
+# Antigravity & Gemini
+.gemini/
+.antigravity/
+.system_generated/
+
+# Claude Code
+.claude/
+.claude.json
+claude.json
+.claude-sessions/
+
+# Cursor & Windsurf
+.cursor/
+.cursorrules
+.cursorignore
+.cursorindexingignore
+.windsurf/
+.windsurfrules
+
+# Cline, Roo Code & Codeium
+.cline/
+.clinerules
+.roo/
+.roomodes
+.roomodes/
+.codeium/
+.codeiumignore
+
+# Aider, Continue & Cody
+.aider*
+.continue/
+.continueignore
+.cody/
+
+# Generic AI / LLM / Chat logs & caches
+.agent/
+.agents/
+.ai/
+.llm/
+.prompts/
+.chat/
+chat-history/
