@@ -13,7 +13,7 @@
  *
  * @param {string} s - Input string
  *
- * @returns {string} - Resulting string
+ * @returns {string} Resulting string
  */
 const reverseParentheses = (s) => {
   // Stack to keep track of indices of opening parentheses
