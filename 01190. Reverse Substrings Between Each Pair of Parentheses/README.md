@@ -1,10 +1,8 @@
 <h1>
-  <a href="https://leetcode.com/problems/reverse-substrings-between-each-pair-of-parentheses/">
-    1190. Reverse Substrings Between Each Pair of Parentheses
-  </a>
+  <a href="https://leetcode.com/problems/reverse-substrings-between-each-pair-of-parentheses/"> 1190. Reverse Substrings Between Each Pair of Parentheses </a>
 </h1>
-<img src='https://img.shields.io/badge/Difficulty-Medium-orange' alt='Difficulty: Medium' />
-<img src='https://img.shields.io/badge/Topics-Array%2C%20Greedy%2C%20Sliding%20Window-blue' alt='Topics: String, Stack, Weekly Contest 154' />
+<img src="https://img.shields.io/badge/Difficulty-Medium-orange" alt="Difficulty: Medium" />
+<img src="https://img.shields.io/badge/Topics-Senior%2C%20String%2C%20Stack%2C%20Weekly%20Contest%20154-blue" alt="Topics: Senior, String, Stack, Weekly Contest 154" />
 
 <hr />
 
@@ -17,22 +15,25 @@
 <p>&nbsp;</p>
 <p><strong class="example">Example 1:</strong></p>
 
-<pre><strong>Input:</strong> s = "(abcd)"
-<strong>Output:</strong> "dcba"
+<pre>
+<strong>Input:</strong> s = &quot;(abcd)&quot;
+<strong>Output:</strong> &quot;dcba&quot;
 </pre>
 
 <p><strong class="example">Example 2:</strong></p>
 
-<pre><strong>Input:</strong> s = "(u(love)i)"
-<strong>Output:</strong> "iloveu"
-<strong>Explanation:</strong> The substring "love" is reversed first, then the whole string is reversed.
+<pre>
+<strong>Input:</strong> s = &quot;(u(love)i)&quot;
+<strong>Output:</strong> &quot;iloveu&quot;
+<strong>Explanation:</strong> The substring &quot;love&quot; is reversed first, then the whole string is reversed.
 </pre>
 
 <p><strong class="example">Example 3:</strong></p>
 
-<pre><strong>Input:</strong> s = "(ed(et(oc))el)"
-<strong>Output:</strong> "leetcode"
-<strong>Explanation:</strong> First, we reverse the substring "oc", then "etco", and finally, the whole string.
+<pre>
+<strong>Input:</strong> s = &quot;(ed(et(oc))el)&quot;
+<strong>Output:</strong> &quot;leetcode&quot;
+<strong>Explanation:</strong> First, we reverse the substring &quot;oc&quot;, then &quot;etco&quot;, and finally, the whole string.
 </pre>
 
 <p>&nbsp;</p>
