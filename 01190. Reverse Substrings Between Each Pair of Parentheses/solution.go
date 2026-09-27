@@ -28,7 +28,7 @@ func reverseParentheses(s string) string {
 		// If the current character is '(', push its index onto the stack
 		if s[i] == byte('(') {
 			stack = append(stack, i)
-		// If the current character is ')', pop the last '(' index and reverse the substring between them
+			// If the current character is ')', pop the last '(' index and reverse the substring between them
 		} else if s[i] == byte(')') {
 			openIdx := stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
