@@ -5,7 +5,7 @@
  *
  * Language: Golang
  *
- * Performance: Runtime - 1 ms (Beats 100%)
+ * Performance: Runtime - 0 ms (Beats 100%)
  */
 
 func maxDepthAfterSplit(seq string) []int {
