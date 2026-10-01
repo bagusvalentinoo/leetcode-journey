@@ -13,7 +13,7 @@
  *
  * @param {string} s - Input string with brackets
  *
- * @returns {boolean} - True if brackets are valid
+ * @returns {boolean} True if brackets are valid
  */
 const isValid = (s) => {
   // Create an empty stack to track opening brackets
