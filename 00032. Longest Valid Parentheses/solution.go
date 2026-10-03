@@ -9,28 +9,32 @@
  */
 
 func longestValidParentheses(s string) int {
-  // Stack to track positions, initialized with -1 to handle edge cases
-  positionStack := []int{-1}
+  // Cache string length for loop boundary
+  n := len(s)
   // Tracks the maximum length of valid parentheses found
-  maxLength := 0
+  res := 0
+  // Stack to track positions, initialized with -1 to handle edge cases
+  stack := make([]int, 0, n+1)
+  stack = append(stack, -1)
 
-  for index := 0; index < len(s); index++ {
+  for i := 0; i < n; i++ {
     // Push opening parenthesis position to stack
-    if s[index] == '(' {
-      positionStack = append(positionStack, index)
+    if s[i] == '(' {
+      stack = append(stack, i)
     } else {
       // Pop for closing parenthesis
-      positionStack = positionStack[:len(positionStack)-1]
+      stack = stack[:len(stack)-1]
 
       // If stack is empty, push current position as new reference point
-      if len(positionStack) == 0 {
-        positionStack = append(positionStack, index)
+      if len(stack) == 0 {
+        stack = append(stack, i)
       } else {
         // Calculate length between current position and last position in stack
-        maxLength = max(maxLength, index-positionStack[len(positionStack)-1])
+        length := i - stack[len(stack)-1]
+        res = max(res, length)
       }
     }
   }
 
-  return maxLength
+  return res
 }
