@@ -13,7 +13,7 @@
  *
  * @param {string} s - String containing parentheses
  *
- * @returns {number} - Length of longest valid parentheses substring
+ * @returns {number} Length of longest valid parentheses substring
  */
 const longestValidParentheses = (s) => {
   // Stack to track positions, initialized with -1 to handle edge cases
