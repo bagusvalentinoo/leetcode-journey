@@ -3,35 +3,36 @@
  *
  * Difficulty: Medium
  *
- * Language: Go
+ * Language: Golang
  *
  * Performance: Runtime - 0 ms (Beats 100%)
  */
 
 func generateParenthesis(n int) []string {
-	// Initialize an empty slice to store valid parentheses combinations
-	var result []string
+  // Store all valid combinations
+  result := make([]string, 0)
 
-	// Use backtracking to generate all valid combinations, starting with empty string
-	backtrack(&result, "", 0, 0, n)
+  // Build combinations by tracking open and close counts
+  var backtrack func(current string, open, close int)
+  backtrack = func(current string, open, close int) {
+    // Add complete string once all pairs are used
+    if len(current) == 2*n {
+      result = append(result, current)
+      return
+    }
+    // Add open parenthesis while pairs remain
+    if open < n {
+      backtrack(current+"(", open+1, close)
+    }
+    // Add close parenthesis only when it keeps the string valid
+    if close < open {
+      backtrack(current+")", open, close+1)
+    }
+  }
 
-	// Return all valid combinations
-	return result
-}
+  // Start from the empty string
+  backtrack("", 0, 0)
 
-func backtrack(result *[]string, current string, open, close, max int) {
-	// If we've used all available parentheses, add the complete string to result
-	if len(current) == 2*max {
-		*result = append(*result, current)
-		return
-	}
-	
-	// Add an opening parenthesis if we haven't used all available ones
-	if open < max {
-		backtrack(result, current + "(", open + 1, close, max)
-	}
-	// Add a closing parenthesis if it's valid (more open than close parentheses so far)
-	if close < open {
-		backtrack(result, current + ")", open, close + 1, max)
-	}
+  // Return all valid combinations
+  return result
 }
