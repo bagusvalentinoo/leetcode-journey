@@ -1,10 +1,8 @@
 <h1>
-  <a href="https://leetcode.com/problems/generate-parentheses/">
-    22. Generate Parentheses
-  </a>
+  <a href="https://leetcode.com/problems/generate-parentheses/"> 00022. Generate Parentheses </a>
 </h1>
-<img src='https://img.shields.io/badge/Difficulty-Medium-orange' alt='Difficulty: Medium' />
-<img src='https://img.shields.io/badge/Topics-String%2C%20Dynamic%20Programming%2C%20Backtracking-blue' alt='Topics: String, Dynamic Programming, Backtracking' />
+<img src="https://img.shields.io/badge/Difficulty-Medium-orange" alt="Difficulty: Medium" />
+<img src="https://img.shields.io/badge/Topics-String%2C%20Dynamic%20Programming%2C%20Backtracking%2C%20Bracket%20Sequences-blue" alt="Topics: String, Dynamic Programming, Backtracking, Bracket Sequences" />
 
 <hr />
 
