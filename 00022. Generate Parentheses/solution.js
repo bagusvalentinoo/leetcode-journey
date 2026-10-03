@@ -9,28 +9,29 @@
  */
 
 /**
- * Generate all valid combinations of n pairs of parentheses
+ * Generate all combinations of well-formed parentheses
  *
- * @param {number} n - Number of pairs
+ * @param {number} n - Number of pairs of parentheses
  *
- * @returns {string[]} - Array of valid parentheses strings
+ * @returns {string[]} All valid combinations
  */
 const generateParenthesis = (n) => {
   // Store all valid combinations
   const result = []
 
-  // Recursive function to build combinations
+  // Build combinations by tracking open and close counts
   const backtrack = (current, open, close) => {
-    // Add to result when we have a complete valid string
+    // Add complete string once all pairs are used
     if (current.length === 2 * n) return result.push(current)
-    // Add opening parenthesis if we haven't used all n
+    // Add open parenthesis while pairs remain
     if (open < n) backtrack(current + '(', open + 1, close)
-    // Add closing parenthesis if it makes a valid expression
+    // Add close parenthesis only when it keeps the string valid
     if (close < open) backtrack(current + ')', open, close + 1)
   }
 
-  // Start the recursion with empty string
+  // Start from the empty string
   backtrack('', 0, 0)
 
+  // Return all valid combinations
   return result
 }
