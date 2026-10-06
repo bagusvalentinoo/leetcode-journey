@@ -13,12 +13,12 @@
  *
  * @param {string} s - Input string
  *
- * @returns {number} - Minimum moves required
+ * @returns {number} Minimum moves required
  */
 const minAddToMakeValid = (s) => {
   // Counter for open and close parentheses
-  let open = 0
-  let close = 0
+  let open = 0,
+    close = 0
 
   // Iterate through the string
   for (const char of s) {
