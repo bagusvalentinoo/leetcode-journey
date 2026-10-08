@@ -12,38 +12,30 @@ public class Solution
 {
   public string RemoveOuterParentheses(string s)
   {
-    // StringBuilder to efficiently build result string
-    StringBuilder result = new StringBuilder();
+    // Preallocate buffer for inner parentheses
+    var buffer = new char[s.Length];
 
-    // Track current nesting depth
-    int depth = 0;
+    // Group related counters for result length and nesting depth
+    int length = 0, depth = 0;
 
     // Iterate through each character in the string
     foreach (char c in s)
     {
-      // If character is an opening parenthesis
+      // Handle opening parenthesis
       if (c == '(')
       {
-        // Add to result if not the outermost parenthesis (depth > 0)
-        if (depth > 0)
-          result.Append(c);
-
-        // Increment depth for nested parentheses
-        depth++;
+        // Keep non-outermost opening parenthesis and advance depth
+        if (depth++ > 0) buffer[length++] = c;
       }
-      // If character is a closing parenthesis
+      // Handle closing parenthesis
       else
       {
-        // Decrement depth first (this closing parenthesis closes current level)
-        depth--;
-
-        // Add to result if not closing the outermost parenthesis (depth > 0)
-        if (depth > 0)
-          result.Append(c);
+        // Retreat depth first and keep non-outermost closing parenthesis
+        if (--depth > 0) buffer[length++] = c;
       }
     }
 
-    // Return the resulting string with outermost parentheses removed
-    return result.ToString();
+    // Build result string from buffered characters
+    return new string(buffer, 0, length);
   }
 }
