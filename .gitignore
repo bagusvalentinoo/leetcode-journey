@@ -177,6 +177,7 @@ dist
 .DS_Store
 
 # AI Assistants, Agents & Workspace Configuration
+.codex/
 AGENTS.md
 agents.md
 CLAUDE.md
